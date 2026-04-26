@@ -14,30 +14,24 @@ export default function GalleryPage() {
 
   return (
     <div className="pt-32 pb-24">
-      {/* Header */}
       <header className="max-w-screen-2xl mx-auto px-6 md:px-24 mb-12">
         <span className="text-gold font-headline font-bold tracking-[0.3em] text-[10px] uppercase mb-4 block">
-          Archives & Impact
+          Archives &amp; Impact
         </span>
         <h1 className="text-5xl md:text-7xl font-bold font-headline text-on-surface tracking-tighter leading-none">
-          Media & Appearances
+          Media &amp; Appearances
         </h1>
       </header>
 
-      {/* Filters + Toggle row */}
-      <div className="max-w-screen-2xl mx-auto px-6 md:px-24 mb-12 flex flex-col md:flex-row
-                      gap-6 items-start md:items-center justify-between">
+      <div className="max-w-screen-2xl mx-auto px-6 md:px-24 mb-12 flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
         <GalleryFilters active={filter} onChange={setFilter} />
         <MediaToggle value={mediaType} onChange={setMediaType} />
       </div>
 
-      {/* Content */}
       <div className="max-w-screen-2xl mx-auto px-6 md:px-24">
-        {mediaType === 'images' ? (
-          <MasonryGrid images={galleryImages} filter={filter} />
-        ) : (
-          <VideoGrid />
-        )}
+        {mediaType === 'images'
+          ? <MasonryGrid images={galleryImages} filter={filter} />
+          : <VideoGrid />}
       </div>
     </div>
   )

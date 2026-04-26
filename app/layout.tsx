@@ -77,9 +77,9 @@ const personSchema = {
   ],
   knowsAbout: ['Mobile Architecture', 'Flutter Development', 'AI in Healthcare', 'Clean Architecture', 'Enterprise Software', 'TypeScript', 'AWS Cloud', 'Zero Trust Security', 'Distributed Systems'],
   sameAs: [
-    'https://linkedin.com/in/bharatdixit',          // ← update
-    'https://github.com/bharatdixit',                // ← update
-    'https://researchgate.net/profile/Bharat-Dixit', // ← update
+    'https://www.linkedin.com/in/bharat-dixit-80573a2b9/',
+    'https://github.com/bharatdixit',                // ← update if different
+    'https://wa.me/919354795744',
   ],
   nationality: { '@type': 'Country', name: 'India' },
   founder: { '@type': 'NGO', name: 'Shree Kishori Priya Foundation', description: 'Old Age Home NGO in Vrindavan supporting abandoned senior citizens.', foundingDate: '2020' },

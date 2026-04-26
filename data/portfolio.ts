@@ -29,8 +29,7 @@ export interface CoverCard {
 }
 
 export const coverCards: CoverCard[] = [
-  { id: 'nit-kolkata',   tag: 'Judge & Mentor',     tagCls: 'metallic-text',   title: 'NIT Kolkata Summit',          desc: 'Presiding over innovation as a technical judge, evaluating breakthrough mobile architectures and AI solutions.',              imagePath: null, placeholderBg: 'from-[#0a1828] to-[#1a3050]' },
-  { id: 'hackindia',     tag: 'Keynote Presence',    tagCls: 'text-cyan-400',   title: 'HackIndia National Lead',     desc: "Spearheading nation-wide developer ecosystems and mentoring the next generation of full-stack innovators.",                imagePath: null, placeholderBg: 'from-[#0c1428] to-[#1a2848]' },
+  { id: 'judging',       tag: 'Judge & Mentor',      tagCls: 'text-cyan-400',   title: 'Judging & Mentorship',        desc: 'Technical jury member at HackIndia, NIT Kolkata, NIT Delhi, Chitkara University, Smart India Hackathon, and more.',       imagePath: null, placeholderBg: 'from-[#0a1828] to-[#1a3050]' },
   { id: 'ibm-training',  tag: 'Certified Excellence',tagCls: 'metallic-text',   title: 'IBM Enterprise Training',     desc: 'Completed advanced certification in enterprise cloud mobility and architectural scalability frameworks.',                   imagePath: null, placeholderBg: 'from-[#101828] to-[#1a2038]' },
   { id: 'recognitions',  tag: 'Industry Honours',    tagCls: 'text-primary',    title: 'Appreciation & Recognitions', desc: 'Recognised by peers and leadership for exceptional contributions to enterprise mobile architecture.',                    imagePath: null, placeholderBg: 'from-[#0a1020] to-[#1a2030]' },
   { id: 'media',         tag: 'Press Coverage',      tagCls: 'text-cyan-400',   title: 'Media Recognitions',          desc: 'Featured in leading technology publications for insights on AI integration and digital transformation.',                 imagePath: null, placeholderBg: 'from-[#0c1020] to-[#182030]' },
@@ -38,7 +37,99 @@ export const coverCards: CoverCard[] = [
   { id: 'ngo-foundation',tag: 'Philanthropy',         tagCls: 'text-orange-400', title: 'Founder of NGO',              desc: 'Founded Shree Kishori Priya Foundation for the elderly in Vrindavan — a mission beyond technology.',                    imagePath: null, placeholderBg: 'from-[#1a1010] to-[#2a1808]' },
 ]
 
-// ── Module Sections ───────────────────────────────────────────────
+// ── Judging Events (unified section) ─────────────────────────────
+export type JudgingType = 'national' | 'university' | 'international'
+
+export interface JudgingEvent {
+  id: string
+  institution: string
+  role: string
+  year: string
+  type: JudgingType
+  shortDesc: string
+  fullDesc: string
+  tags: string[]
+  /** Drop file into public/judging/<id>.webp */
+  imagePath: string | null
+  placeholderGradient: string
+}
+
+export const judgingEvents: JudgingEvent[] = [
+  {
+    id: 'hackindia',
+    institution: 'HackIndia — National Hackathon',
+    role: 'International Tech Lead Judge',
+    year: '2024',
+    type: 'national',
+    shortDesc: "Lead judge at India's largest university hackathon, evaluating 50+ teams across Web3, FinTech, and Mobile sectors.",
+    fullDesc: "Served as International Tech Lead Judge at HackIndia's national finals — India's largest university hackathon. Collaborated on the judging panel with representatives from Google, Microsoft, and NASSCOM, evaluating over 50 finalist teams against industry-grade engineering standards, scalability, and business viability. Also conducted a live mentorship session for shortlisted teams on enterprise mobile architecture.",
+    tags: ['Mobile', 'AI/ML', 'Web3', 'FinTech'],
+    imagePath: null,
+    placeholderGradient: '#0a1428,#1a2848',
+  },
+  {
+    id: 'nit-kolkata',
+    institution: 'NIT Kolkata',
+    role: 'Technical Panel Judge',
+    year: '2023',
+    type: 'university',
+    shortDesc: 'Invited as guest of honour and jury member for the annual technical symposium, evaluating 50+ mobile and AI projects.',
+    fullDesc: "Invited as a guest of honour and technical jury member for NIT Kolkata's Annual Technology Symposium. Evaluated over 50+ innovative mobile applications and AI-driven prototypes across three engineering specialisations — Mobile Development, AI/ML, and Cloud Systems. Provided strategic feedback on clean architecture, scalability patterns, and entrepreneurial viability to final-year engineering students.",
+    tags: ['Mobile', 'AI', 'Cloud', 'Architecture'],
+    imagePath: null,
+    placeholderGradient: '#0a1828,#1a3050',
+  },
+  {
+    id: 'nit-delhi',
+    institution: 'NIT Delhi',
+    role: 'Technical Panel Judge',
+    year: '2023',
+    type: 'university',
+    shortDesc: "Jury member at NIT Delhi's annual innovation summit, assessing student-built mobile and enterprise solutions.",
+    fullDesc: "Invited as a technical panel judge at NIT Delhi's Innovation Summit. Assessed student-built mobile applications and enterprise solutions, focusing on code quality, user experience design, and production readiness. Conducted a post-judging Q&A session on industry pathways in mobile architecture for final-year students.",
+    tags: ['Mobile', 'Innovation', 'Enterprise'],
+    imagePath: null,
+    placeholderGradient: '#101828,#1c2a40',
+  },
+  {
+    id: 'chitkara',
+    institution: 'Chitkara University',
+    role: 'Industry Expert Judge',
+    year: '2023',
+    type: 'university',
+    shortDesc: 'Industry expert judge at Chitkara University TechFest, mentoring student teams on real-world architectural challenges.',
+    fullDesc: "Served as an industry expert judge at Chitkara University's annual TechFest. Evaluated 30+ student projects across mobile app development, IoT integration, and AI-powered solutions. Provided hands-on mentorship to winning teams, guiding them on transitioning academic projects into production-ready products. Delivered a keynote on clean architecture principles for modern mobile development.",
+    tags: ['Flutter', 'IoT', 'Mentorship', 'Keynote'],
+    imagePath: null,
+    placeholderGradient: '#0c1020,#1a1c30',
+  },
+  {
+    id: 'smart-india',
+    institution: 'Smart India Hackathon',
+    role: 'Evaluation Expert',
+    year: '2022',
+    type: 'national',
+    shortDesc: "Evaluation expert at India's largest government-backed hackathon, assessing solutions for national-scale challenges.",
+    fullDesc: "Participated as an Evaluation Expert at Smart India Hackathon — India's largest government-backed student hackathon organised by the Ministry of Education. Assessed solutions addressing national-scale challenges in healthcare digitisation, agricultural technology, and urban mobility. Evaluated teams on technical feasibility, scalability architecture, and potential for government adoption.",
+    tags: ['GovTech', 'Healthcare', 'AgriTech', 'Scale'],
+    imagePath: null,
+    placeholderGradient: '#0a1020,#162030',
+  },
+  {
+    id: 'amity',
+    institution: 'Amity University',
+    role: 'Tech Lead Mentor & Judge',
+    year: '2022',
+    type: 'university',
+    shortDesc: 'Mentor and judge at Amity University Hackathon, coaching teams on architecture design and production readiness.',
+    fullDesc: "Served as Tech Lead Mentor and Judge at the Amity University Hackathon. Worked directly with competing teams throughout the event as a mentor, then assessed final presentations as part of the judging panel. Focused on evaluating technical depth, architecture decisions, and the teams' ability to articulate their solutions to non-technical stakeholders — a critical enterprise skill.",
+    tags: ['Mentorship', 'Architecture', 'Enterprise'],
+    imagePath: null,
+    placeholderGradient: '#101018,#1c1828',
+  },
+]
+
+// ── Module Sections (non-judging) ─────────────────────────────────
 export interface ModuleSection {
   id: string; tag: string; title: string; body: string[]; ctaLabel: string
   /** Set to '/modules/<id>/<filename>.webp' */
@@ -49,8 +140,6 @@ export interface ModuleSection {
 }
 
 export const moduleSections: ModuleSection[] = [
-  { id: 'nit-kolkata',   tag: 'Academic Excellence',           title: 'Judging at NIT Kolkata',                     body: ['Invited as a guest of honor and technical jury member for the annual technical symposium. Evaluated over 50+ innovative mobile applications and AI-driven prototypes, providing strategic feedback to the next generation of engineers.'], ctaLabel: 'Event Gallery',                   imageSrc: null, imageAlt: 'Bharat Kumar Dixit judging at NIT Kolkata technical symposium', placeholderGradient: '#0a1828,#1a3050', imageAspect: 'aspect-video', layout: 'image-left',  imageWrapperCls: 'grayscale hover:grayscale-0 transition-all duration-700' },
-  { id: 'hackindia',     tag: 'National Recognition',          title: 'International Tech Lead Judge — HackIndia',  body: ["Spearheading the technical evaluation framework for one of India's largest national hackathons. Collaborated with industry veterans to mentor and judge high-impact solutions across Web3, FinTech, and Mobile sectors."], ctaLabel: 'View Certificate/Details',        imageSrc: null, imageAlt: 'Bharat Kumar Dixit as International Tech Lead Judge at HackIndia', placeholderGradient: '#0c1428,#1a2848', imageAspect: 'aspect-video', layout: 'image-right' },
   { id: 'ibm-training',  tag: 'Enterprise Knowledge Transfer', title: 'Empowering the Next Generation at IBM',      body: ['Orchestrated intensive technical bootcamps for senior developers and system architects. Focused on enterprise-grade Flutter architecture, CI/CD pipelines, and cloud-native mobile integration strategies to ensure mission-ready readiness.'], ctaLabel: 'Technical Knowledge Transfer',     imageSrc: null, imageAlt: 'Bharat Kumar Dixit conducting architecture training at IBM', placeholderGradient: '#101828,#1a2038', imageAspect: 'aspect-video', layout: 'image-left' },
   { id: 'recognitions',  tag: 'Peer Recognition',              title: 'Appreciation & Recognitions',                body: ['Recognised for outstanding technical leadership during enterprise migrations, infrastructure design, and community-building initiatives across IBM and Vigorus.ai.'], ctaLabel: 'View All Awards',                 imageSrc: null, imageAlt: 'Bharat Kumar Dixit recognition awards', placeholderGradient: '#0a1020,#1a2030', imageAspect: 'aspect-video', layout: 'image-right' },
   { id: 'media',         tag: 'Press & Publications',          title: 'Media Recognitions',                         body: ['Featured and interviewed by leading technology publications and business journals for insights on the future of mobile architecture, AI integration, and digital transformation at scale.'], ctaLabel: 'View Press Kit',                  imageSrc: null, imageAlt: 'Bharat Kumar Dixit media appearances and press coverage', placeholderGradient: '#0c1020,#182030', imageAspect: 'aspect-video', layout: 'image-left' },
@@ -66,9 +155,9 @@ export interface TimelineRole {
 }
 
 export const timelineRoles: TimelineRole[] = [
-  { period: '2023 - Present', side: 'left',  dotCls: 'bg-primary shadow-[0_0_15px_rgba(180,197,255,0.8)]',   borderCls: 'border-primary/20',         company: 'Vigorus.ai',  companyCls: 'metallic-text', role: 'Chief Technology Officer',   desc: 'Directing global AI-health-tech strategy, overseeing full-stack mobile architecture, and scaling product-led growth.',                                              periodCls: 'text-primary/40',   logoPath: null },
-  { period: '2021 - 2023',   side: 'right', dotCls: 'bg-secondary shadow-[0_0_15px_rgba(212,187,255,0.4)]', borderCls: 'border-outline-variant/30', company: 'IBM India',   companyCls: 'metallic-text', role: 'Mobile Tech Lead',           desc: "Led mission-critical iOS/Android deployments for Fortune 500 financial clients using Flutter and Swift/Kotlin native stacks.",                                      periodCls: 'text-secondary/40', logoPath: null },
-  { period: '2019 - 2021',   side: 'left',  dotCls: 'bg-primary/60',                                         borderCls: 'border-outline-variant/30', company: 'Clixlogix',   companyCls: 'metallic-text', role: 'Senior Mobile Architect',    desc: 'Engineered robust cross-platform solutions for logistics and supply chain management at enterprise scale.',                                                         periodCls: 'text-primary/40',   logoPath: null },
+  { period: 'Jan 2023 — Present', side: 'left',  dotCls: 'bg-primary shadow-[0_0_15px_rgba(180,197,255,0.8)]',   borderCls: 'border-primary/20',         company: 'Vigorus.ai',  companyCls: 'metallic-text', role: 'Chief Technology Officer',              desc: 'Directing global AI-health-tech strategy, overseeing full-stack mobile architecture, and scaling product-led growth across international markets.', periodCls: 'text-primary/40',   logoPath: null },
+  { period: 'Jan 2022 — Present', side: 'right', dotCls: 'bg-secondary shadow-[0_0_15px_rgba(212,187,255,0.4)]', borderCls: 'border-secondary/20',       company: 'IBM',         companyCls: 'metallic-text', role: 'Senior Mobile Application Architect', desc: 'Leading enterprise-grade mobile architecture for Fortune 500 clients — designing scalable Flutter and Swift/Kotlin native stacks, defining CI/CD pipelines, and driving cross-functional engineering teams across healthcare and financial services.', periodCls: 'text-secondary/40', logoPath: null },
+  { period: 'Apr 2014 — Jan 2022', side: 'left', dotCls: 'bg-primary/60',                                         borderCls: 'border-outline-variant/30', company: 'Other Companies', companyCls: 'metallic-text', role: 'Mobile Application Developer & Architect', desc: 'Over eight years of progressive mobile engineering across multiple organisations — building cross-platform applications for logistics, e-commerce, healthcare, and finance. Grew from hands-on developer to lead architect, establishing expertise in iOS, Android, React Native, and enterprise-scale system design.', periodCls: 'text-primary/40',   logoPath: null },
 ]
 
 // ── Whitepapers ───────────────────────────────────────────────────

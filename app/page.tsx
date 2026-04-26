@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { HeroSection } from '@/components/home/HeroSection'
 import { CoverFlow } from '@/components/home/CoverFlow'
+import { JudgingSection } from '@/components/home/JudgingSection'
 import { ModuleSections } from '@/components/home/ModuleSection'
 import { CareerTimeline } from '@/components/home/CareerTimeline'
 import { SkillsCloud } from '@/components/home/SkillsCloud'
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://bharatdixit.com' },
   openGraph: {
     title: 'Bharat Dixit | International Tech Leader & CTO',
-    description: 'CTO at Vigorus.ai. Senior Mobile Architect. Judge at HackIndia & NIT Kolkata. Founder of Shree Kishori Priya Foundation.',
+    description: 'CTO at Vigorus.ai. Senior Mobile Architect. Judge at HackIndia, NIT Kolkata, NIT Delhi, Chitkara University & more. Founder of Shree Kishori Priya Foundation.',
     url: 'https://bharatdixit.com',
   },
 }
@@ -22,6 +23,7 @@ export default function HomePage() {
     <>
       <HeroSection />
       <CoverFlow />
+      <JudgingSection />
       <ModuleSections />
       <CareerTimeline />
       <SkillsCloud />

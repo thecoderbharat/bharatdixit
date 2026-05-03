@@ -53,7 +53,7 @@ export function JudgingSection() {
             {[
               { value: `${judgingEvents.length}+`, label: 'Events Judged' },
               { value: '500+', label: 'Projects Evaluated' },
-              { value: '12+', label: 'Institutions' },
+              { value: '70+', label: 'Institutions' },
             ].map(stat => (
               <div key={stat.label}
                 className="bg-surface-container-low border border-white/5 rounded-2xl px-6 py-5 text-center">

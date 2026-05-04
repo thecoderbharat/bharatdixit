@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import {
@@ -14,13 +15,14 @@ const ICON_MAP: Record<string, React.ElementType> = {
 export function WhitepaperCard({ paper, delay = 0 }: { paper: Whitepaper; delay?: number }) {
   const Icon = ICON_MAP[paper.iconName] ?? Landmark
 
-  return (
+  // ── The inner card markup (same for both link types) ──────────────
+  const cardContent = (
     <motion.article
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.5, delay }}
-      className="glass-card rounded-xl overflow-hidden group hover:shadow-lg hover:shadow-neon/5 transition-all duration-500 flex flex-col"
+      className="glass-card rounded-xl overflow-hidden group hover:shadow-lg hover:shadow-neon/5 transition-all duration-500 flex flex-col cursor-pointer"
     >
       {/* Thumbnail */}
       <div className="relative h-64 overflow-hidden flex items-center justify-center bg-surface-lowest">
@@ -34,7 +36,10 @@ export function WhitepaperCard({ paper, delay = 0 }: { paper: Whitepaper; delay?
           />
         ) : (
           <>
-            <div className="absolute inset-0" style={{ background: `radial-gradient(ellipse at 50% 60%, ${paper.tagColor}18 0%, transparent 70%)` }} />
+            <div
+              className="absolute inset-0"
+              style={{ background: `radial-gradient(ellipse at 50% 60%, ${paper.tagColor}18 0%, transparent 70%)` }}
+            />
             <Icon size={80} className="relative z-10" style={{ color: `${paper.tagColor}45` }} />
           </>
         )}
@@ -58,18 +63,37 @@ export function WhitepaperCard({ paper, delay = 0 }: { paper: Whitepaper; delay?
           <span className="text-gold font-headline font-bold text-[10px] uppercase tracking-widest">
             {paper.meta}
           </span>
-          <a
-            href={paper.pdfUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`Read ${paper.title} PDF`}
-            className="flex items-center gap-1.5 text-neon font-headline font-bold text-xs uppercase tracking-wider group/btn"
-          >
-            Read PDF
-            <ExternalLink size={14} className="group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
-          </a>
+          <span className="flex items-center gap-1.5 text-neon font-headline font-bold text-xs uppercase tracking-wider group/btn">
+            {paper.route ? 'Read More' : 'Read PDF'}
+            <ExternalLink
+              size={14}
+              className="group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform"
+            />
+          </span>
         </div>
       </div>
     </motion.article>
+  )
+
+  // ── If the whitepaper has an internal route → use Next.js Link ────
+  if (paper.route) {
+    return (
+      <Link href={paper.route} className="block no-underline">
+        {cardContent}
+      </Link>
+    )
+  }
+
+  // ── Otherwise open the PDF directly in a new tab (existing behaviour) ──
+  return (
+    <a
+      href={paper.pdfUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`Read ${paper.title} PDF`}
+      className="block no-underline"
+    >
+      {cardContent}
+    </a>
   )
 }

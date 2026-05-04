@@ -74,7 +74,7 @@ function CheckItem({ children }: { children: React.ReactNode }) {
 }
 
 // ── HERO ──────────────────────────────────────────────────────────
-function Hero({ onDownload }: { onDownload: () => void }) {
+function Hero() {
   return (
     <section className="pt-32 pb-20 relative overflow-hidden">
       {/* Radial glow blobs — matches site style */}
@@ -116,13 +116,15 @@ function Hero({ onDownload }: { onDownload: () => void }) {
               variants={fadeUp} initial="hidden" animate="visible" custom={0.24}
               className="flex flex-wrap gap-4 mb-12"
             >
-              <button
-                onClick={onDownload}
-                className="flex items-center gap-2 px-8 py-4 bg-primary text-on-primary font-headline font-bold uppercase tracking-widest text-[11px] rounded-lg hover:brightness-110 active:scale-95 transition-all shadow-lg shadow-primary/20"
+              <a
+                href={PDF_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-on-primary font-headline font-bold uppercase tracking-widest text-[11px] rounded-lg hover:brightness-110 active:scale-95 transition-all shadow-lg shadow-primary/20 no-underline"
               >
                 <Download size={15} />
                 Download Whitepaper (PDF)
-              </button>
+              </a>
               <a
                 href="#overview"
                 className="flex items-center gap-2 px-8 py-4 bg-transparent border border-white/15 text-on-surface font-headline font-bold uppercase tracking-widest text-[11px] rounded-lg hover:border-primary/50 hover:text-primary transition-all"
@@ -765,7 +767,7 @@ function Competitive() {
 }
 
 // ── DOWNLOAD CTA ──────────────────────────────────────────────────
-function DownloadCta({ onDownload }: { onDownload: () => void }) {
+function DownloadCta() {
   return (
     <section className="py-24 bg-surface-low border-t border-white/5">
       <div className="max-w-screen-2xl mx-auto px-6 md:px-24">
@@ -784,13 +786,15 @@ function DownloadCta({ onDownload }: { onDownload: () => void }) {
               <strong className="text-on-surface">{AUTHOR}</strong> — all seven AI agents,
               ABDM &amp; NHCX architecture, security compliance, and commercialisation strategy.
             </p>
-            <button
-              onClick={onDownload}
-              className="inline-flex items-center gap-3 px-10 py-4 bg-primary text-on-primary font-headline font-bold uppercase tracking-widest text-[11px] rounded-lg hover:brightness-110 active:scale-95 transition-all shadow-lg shadow-primary/20"
+            <a
+              href={PDF_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 px-10 py-4 bg-primary text-on-primary font-headline font-bold uppercase tracking-widest text-[11px] rounded-lg hover:brightness-110 active:scale-95 transition-all shadow-lg shadow-primary/20 no-underline"
             >
               <Download size={16} />
               Download Whitepaper PDF
-            </button>
+            </a>
             <p className="text-on-surface-variant text-[11px] mt-4 font-light">
               Free · PDF · {VERSION} · {PUB_DATE} · 35 pages
             </p>
@@ -803,10 +807,6 @@ function DownloadCta({ onDownload }: { onDownload: () => void }) {
 
 // ── ROOT EXPORT ───────────────────────────────────────────────────
 export function WhitepaperVigorusAi() {
-  const handleDownload = () => {
-    window.open(PDF_URL, '_blank', 'noopener,noreferrer')
-  }
-
   return (
     <div>
       {/* Back to whitepapers breadcrumb */}
@@ -819,7 +819,7 @@ export function WhitepaperVigorusAi() {
         </Link>
       </div>
 
-      <Hero       onDownload={handleDownload} />
+      <Hero       />
       <StatsBar   />
       <Overview   />
       <Products   />
@@ -828,7 +828,7 @@ export function WhitepaperVigorusAi() {
       <Toc        />
       <Compliance />
       <Competitive />
-      <DownloadCta onDownload={handleDownload} />
+      <DownloadCta />
     </div>
   )
 }

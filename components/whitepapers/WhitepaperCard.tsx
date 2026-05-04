@@ -64,7 +64,7 @@ export function WhitepaperCard({ paper, delay = 0 }: { paper: Whitepaper; delay?
             {paper.meta}
           </span>
           <span className="flex items-center gap-1.5 text-neon font-headline font-bold text-xs uppercase tracking-wider group/btn">
-            {paper.route ? 'Read More' : 'Read PDF'}
+            {paper.route ? 'Read More' : paper.pdfUrl && paper.pdfUrl !== '#' ? 'Read PDF' : 'Coming Soon'}
             <ExternalLink
               size={14}
               className="group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform"
@@ -84,7 +84,19 @@ export function WhitepaperCard({ paper, delay = 0 }: { paper: Whitepaper; delay?
     )
   }
 
-  // ── Otherwise open the PDF directly in a new tab (existing behaviour) ──
+  // ── No route and no real PDF yet — render as non-interactive card ──
+  if (!paper.pdfUrl || paper.pdfUrl === '#') {
+    return (
+      <div
+        aria-label={`${paper.title} — coming soon`}
+        className="block cursor-default"
+      >
+        {cardContent}
+      </div>
+    )
+  }
+
+  // ── Otherwise open the PDF directly in a new tab ──
   return (
     <a
       href={paper.pdfUrl}

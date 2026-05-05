@@ -1,8 +1,9 @@
 'use client'
 
-import { useRef, useState } from 'react'
-import { motion, useInView, AnimatePresence } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { judgingEvents } from '@/data/portfolio'
 
 function Reveal({ children, className = '' }: { children: React.ReactNode; className?: string }) {
@@ -20,15 +21,13 @@ function Reveal({ children, className = '' }: { children: React.ReactNode; class
 }
 
 export function JudgingSection() {
-  const [activeId, setActiveId] = useState<string | null>(null)
-
-  const activeEvent = judgingEvents.find(e => e.id === activeId) ?? null
+  const router = useRouter()
 
   return (
     <section id="judging" className="py-32 bg-surface border-y border-white/5 scroll-mt-24">
       <div className="max-w-7xl mx-auto px-8">
 
-        {/* ── Header ── */}
+        {/* Header */}
         <Reveal className="mb-20">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
@@ -68,15 +67,14 @@ export function JudgingSection() {
           </div>
         </Reveal>
 
-        {/* ── Event Cards Grid ── */}
+        {/* Event Cards Grid — click → navigate to detail page */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {judgingEvents.map((event, i) => (
+          {judgingEvents.map((event) => (
             <Reveal key={event.id}>
               <motion.article
-                layoutId={`card-${event.id}`}
-                onClick={() => setActiveId(event.id)}
                 whileHover={{ y: -4 }}
                 transition={{ duration: 0.2 }}
+                onClick={() => router.push(`/judging/${event.id}`)}
                 className="group cursor-pointer bg-surface-container rounded-2xl border border-white/5
                            hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5
                            transition-colors duration-300 overflow-hidden"
@@ -96,9 +94,8 @@ export function JudgingSection() {
                       className="w-full h-full flex items-end p-4 group-hover:opacity-80 transition-opacity"
                       style={{ background: `linear-gradient(135deg, ${event.placeholderGradient})` }}
                     >
-                      {/* Blueprint corner marks */}
                       <div className="absolute top-3 left-3 w-5 h-5 border-l border-t border-primary/20" />
-                      <div className="absolute top-3 right-3 w-5 h-5 border-r border-t border-primary/20" />
+                      <div className="absolute top-3 right-10 w-5 h-5 border-r border-t border-primary/20" />
                       <span className="text-white/20 font-headline font-bold text-sm uppercase tracking-widest leading-tight">
                         {event.institution}
                       </span>
@@ -147,16 +144,14 @@ export function JudgingSection() {
                         </span>
                       ))}
                     </div>
-                    <button
-                      aria-label={`View details for ${event.institution}`}
-                      className="w-8 h-8 rounded-full border border-outline-variant/30 flex items-center
-                                 justify-center text-on-surface-variant group-hover:border-primary/50
-                                 group-hover:text-primary transition-all flex-shrink-0"
-                    >
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <div className="flex items-center gap-1 text-[10px] uppercase tracking-widest font-bold
+                                    text-on-surface-variant group-hover:text-primary transition-colors">
+                      View Event
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        strokeWidth="2" className="group-hover:translate-x-1 transition-transform">
                         <path d="m9 18 6-6-6-6"/>
                       </svg>
-                    </button>
+                    </div>
                   </div>
                 </div>
               </motion.article>
@@ -165,116 +160,6 @@ export function JudgingSection() {
         </div>
 
       </div>
-
-      {/* ── Expanded Detail Modal ── */}
-      <AnimatePresence>
-        {activeEvent && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              key="backdrop"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setActiveId(null)}
-              className="fixed inset-0 bg-surface-lowest/80 backdrop-blur-sm z-40"
-            />
-
-            {/* Modal */}
-            <motion.div
-              key="modal"
-              layoutId={`card-${activeEvent.id}`}
-              className="fixed inset-x-4 md:inset-x-auto md:left-1/2 md:-translate-x-1/2
-                         top-1/2 -translate-y-1/2 z-50 w-full md:w-[700px] max-h-[90vh]
-                         overflow-y-auto bg-surface-container-high rounded-2xl border border-white/10
-                         shadow-2xl shadow-black/60"
-            >
-              {/* Modal image */}
-              <div className="relative h-64 overflow-hidden rounded-t-2xl flex-shrink-0">
-                {activeEvent.imagePath ? (
-                  <Image
-                    src={activeEvent.imagePath}
-                    alt={`Bharat Kumar Dixit at ${activeEvent.institution}`}
-                    fill
-                    className="object-cover"
-                    sizes="700px"
-                  />
-                ) : (
-                  <div
-                    className="w-full h-full"
-                    style={{ background: `linear-gradient(135deg, ${activeEvent.placeholderGradient})` }}
-                  />
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-surface-container-high via-transparent to-transparent" />
-
-                {/* Close */}
-                <button
-                  onClick={() => setActiveId(null)}
-                  className="absolute top-4 right-4 w-9 h-9 bg-surface-lowest/70 backdrop-blur
-                             border border-white/10 rounded-full flex items-center justify-center
-                             text-white/70 hover:text-white transition-colors"
-                >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M18 6 6 18M6 6l12 12"/>
-                  </svg>
-                </button>
-
-                {/* Year */}
-                <div className="absolute bottom-4 left-6">
-                  <span className="text-gold font-headline font-bold text-[10px] uppercase tracking-widest">
-                    {activeEvent.year}
-                  </span>
-                </div>
-              </div>
-
-              {/* Modal content */}
-              <div className="p-8">
-                <span className={`text-[10px] font-headline font-bold uppercase tracking-widest
-                                  px-3 py-1 rounded-full border mb-4 inline-block
-                                  ${activeEvent.type === 'national'
-                                    ? 'bg-cyan-400/10 border-cyan-400/30 text-cyan-400'
-                                    : activeEvent.type === 'university'
-                                      ? 'bg-primary/10 border-primary/30 text-primary'
-                                      : 'bg-secondary/10 border-secondary/30 text-secondary'}`}>
-                  {activeEvent.type}
-                </span>
-
-                <h3 className="font-headline text-3xl font-bold text-white mb-1 tracking-tight">
-                  {activeEvent.institution}
-                </h3>
-                <p className="metallic-text font-bold text-sm tracking-widest uppercase mb-6">
-                  {activeEvent.role}
-                </p>
-
-                <p className="text-on-surface-variant leading-relaxed text-base mb-6">
-                  {activeEvent.fullDesc}
-                </p>
-
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2 mb-8">
-                  {activeEvent.tags.map(tag => (
-                    <span key={tag}
-                      className="text-[10px] font-headline font-bold uppercase tracking-wider
-                                 text-on-surface-variant border border-outline-variant/40
-                                 px-3 py-1 rounded-full">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                <button
-                  onClick={() => setActiveId(null)}
-                  className="w-full py-4 border border-outline-variant/40 text-on-surface-variant
-                             font-headline font-bold text-xs uppercase tracking-widest
-                             hover:border-primary/50 hover:text-primary transition-all rounded-xl"
-                >
-                  Close
-                </button>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
     </section>
   )
 }

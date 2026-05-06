@@ -359,7 +359,7 @@ export const mediaCards: MediaCard[] = [
     outlet: 'Local Media',
     category: 'Feature Coverage',
     title: 'Bharat Dixit Featured in Local Media — Tech Leadership & Innovation',
-    description: 'Local media coverage highlighting the journey and achievements of Bharat Kumar Dixit — from Senior Mobile Architect at IBM to CTO at Vigorus.ai, and his contributions to India's digital health landscape.',
+    description: "Local media coverage highlighting the journey and achievements of Bharat Kumar Dixit — from Senior Mobile Architect at IBM to CTO at Vigorus.ai, and his contributions to India's digital health landscape.",
     date: '2025',
     type: 'feature',
     // Cloudinary folder: bharatdixit/media-coverage/local-media/

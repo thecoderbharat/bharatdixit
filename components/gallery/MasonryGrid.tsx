@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import { cld } from '@/lib/cloudinary'
 import { motion, AnimatePresence } from 'framer-motion'
 import type { GalleryImage, GalleryCategory } from '@/data/portfolio'
 
@@ -30,7 +31,7 @@ export function MasonryGrid({ images, filter }: MasonryGridProps) {
             >
               {img.src ? (
                 <Image
-                  src={img.src}
+                  src={cld(img.src, 'c_fill,g_auto')}
                   alt={`Bharat Kumar Dixit — ${img.label}`}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"

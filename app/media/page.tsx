@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { mediaCards, mediaDetailItems } from '@/data/portfolio'
+import { cld, ytThumb, ytUrl, ytEmbed } from '@/lib/cloudinary'
 
 export default function MediaPage() {
   const [activeCardId, setActiveCardId] = useState<string>(mediaCards[0].id)
@@ -113,7 +114,7 @@ export default function MediaPage() {
             style={{ background: `linear-gradient(135deg, ${activeCard.placeholderGradient})` }}
           >
             {activeCard.imagePath && (
-              <Image src={activeCard.imagePath} alt={activeCard.title} fill
+              <Image src={cld(activeCard.imagePath!, 'w_1400,h_600,c_fill,g_face')} alt={activeCard.title} fill
                 className="object-cover opacity-30" sizes="100vw" />
             )}
             <div className="absolute inset-0 bg-gradient-to-r from-surface-container via-surface-container/80 to-transparent" />
@@ -181,7 +182,13 @@ export default function MediaPage() {
               <div className="text-center py-20 text-on-surface-variant">
                 <div className="text-5xl mb-4">🎞️</div>
                 <p className="font-headline font-bold">No {mediaFilter === 'all' ? '' : mediaFilter} items yet</p>
-                <p className="text-sm mt-2 opacity-60">Drop files into public/media/{activeCardId}/ to populate this section</p>
+                <p className="text-sm mt-2 opacity-60">
+                  Upload to Cloudinary folder{' '}
+                  <code className="bg-surface-container px-2 py-0.5 rounded text-primary text-xs">
+                    bharatdixit/media-coverage/{activeCardId}/
+                  </code>{' '}
+                  then set imagePath in data/portfolio.ts → mediaDetailItems
+                </p>
               </div>
             ) : (
               <div className="columns-1 sm:columns-2 lg:columns-3 gap-5">
@@ -199,24 +206,43 @@ export default function MediaPage() {
                       style={{ background: `linear-gradient(135deg, ${item.placeholderGradient})` }}
                       onClick={() => item.type === 'image' ? setLightbox(item.id) : undefined}
                     >
-                      {item.imagePath && (
-                        <Image src={item.imagePath} alt={item.title} fill
+                      {/* Cloudinary image OR YouTube thumbnail */}
+                      {item.type === 'image' && item.imagePath && (
+                        <Image src={cld(item.imagePath, 'c_fill,g_auto')} alt={item.title} fill
                           className="object-cover group-hover:scale-105 transition-transform duration-500"
                           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
+                      )}
+                      {item.type === 'video' && item.youtubeId && (
+                        <Image src={ytThumb(item.youtubeId)} alt={item.title} fill
+                          className="object-cover"
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          unoptimized />
                       )}
 
                       {/* Video play overlay */}
                       {item.type === 'video' && (
-                        <a href={item.videoUrl ?? '#'} target="_blank" rel="noopener noreferrer"
-                          className="absolute inset-0 flex items-center justify-center">
-                          <div className="w-16 h-16 rounded-full bg-neon/20 backdrop-blur-sm border border-neon/40
-                                          flex items-center justify-center group-hover:bg-neon/30
-                                          group-hover:shadow-xl group-hover:shadow-neon/30 transition-all">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
-                              <polygon points="5,3 19,12 5,21"/>
-                            </svg>
+                        item.youtubeId ? (
+                          <a href={ytUrl(item.youtubeId)} target="_blank" rel="noopener noreferrer"
+                            aria-label={`Watch ${item.title} on YouTube`}
+                            className="absolute inset-0 flex items-center justify-center">
+                            <div className="w-16 h-16 rounded-full bg-neon/20 backdrop-blur-sm border border-neon/40
+                                            flex items-center justify-center group-hover:bg-neon/30
+                                            group-hover:shadow-xl group-hover:shadow-neon/30 transition-all">
+                              <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                                <polygon points="5,3 19,12 5,21"/>
+                              </svg>
+                            </div>
+                          </a>
+                        ) : (
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-sm border border-white/20
+                                            flex items-center justify-center">
+                              <svg width="24" height="24" viewBox="0 0 24 24" fill="white" fillOpacity="0.4">
+                                <polygon points="5,3 19,12 5,21"/>
+                              </svg>
+                            </div>
                           </div>
-                        </a>
+                        )
                       )}
 
                       {/* Hover info overlay */}
@@ -274,7 +300,7 @@ export default function MediaPage() {
                 <div className="relative h-96 md:h-[540px]"
                   style={{ background: `linear-gradient(135deg, ${item.placeholderGradient})` }}>
                   {item.imagePath && (
-                    <Image src={item.imagePath} alt={item.title} fill className="object-contain" sizes="896px" />
+                    <Image src={cld(item.imagePath, 'c_limit,w_896')} alt={item.title} fill className="object-contain" sizes="896px" />
                   )}
                 </div>
                 <div className="p-6">

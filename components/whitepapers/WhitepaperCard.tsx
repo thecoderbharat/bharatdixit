@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import { cld } from '@/lib/cloudinary'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import {
@@ -40,7 +41,7 @@ export function WhitepaperCard({ paper, delay = 0 }: { paper: Whitepaper; delay?
       <div className="relative h-64 overflow-hidden flex items-center justify-center bg-surface-lowest">
         {paper.thumbnailPath ? (
           <Image
-            src={paper.thumbnailPath}
+            src={cld(paper.thumbnailPath!, 'w_800,h_512,c_fill')}
             alt={`${paper.title} — whitepaper by Bharat Kumar Dixit`}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-500"

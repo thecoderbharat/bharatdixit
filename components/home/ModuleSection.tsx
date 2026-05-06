@@ -5,6 +5,7 @@ import { motion, useInView, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { moduleSections, recognitionSlides, mediaCards } from '@/data/portfolio'
+import { cld } from '@/lib/cloudinary'
 
 function Reveal({ children, className = '' }: { children: React.ReactNode; className?: string }) {
   const ref = useRef<HTMLDivElement>(null)
@@ -30,7 +31,7 @@ function ImageSlot({ mod }: { mod: typeof moduleSections[number] }) {
         ${isIBM ? 'border-4 border-surface-container-highest p-1 bg-surface shadow-[0_20px_50px_rgba(0,0,0,0.5)]' : ''}`}>
         <div className={isIBM ? 'overflow-hidden rounded-xl w-full h-full' : 'w-full h-full'}>
           {mod.imageSrc ? (
-            <Image src={mod.imageSrc} alt={mod.imageAlt} fill
+            <Image src={cld(mod.imageSrc!, 'w_1200,h_800,c_fill,g_face')} alt={mod.imageAlt} fill
               className={`object-cover ${mod.imageWrapperCls ?? ''}`}
               sizes="(max-width: 1024px) 100vw, 50vw" />
           ) : (
@@ -107,7 +108,7 @@ function RecognitionsSlider() {
               <div className="relative h-72 lg:h-auto min-h-[340px]"
                 style={{ background: `linear-gradient(135deg, ${slide.placeholderGradient})` }}>
                 {slide.imagePath ? (
-                  <Image src={slide.imagePath} alt={slide.title} fill
+                  <Image src={cld(slide.imagePath!, 'w_800,h_600,c_fill,g_face')} alt={slide.title} fill
                     className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
                 ) : (
                   <>
@@ -249,7 +250,7 @@ function MediaRecognitionsGrid() {
         </Reveal>
 
         {/* 6-card grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {mediaCards.map((card, i) => (
             <Reveal key={card.id}>
               <motion.article
@@ -264,7 +265,7 @@ function MediaRecognitionsGrid() {
                 <div className="relative h-44 overflow-hidden flex-shrink-0"
                   style={{ background: `linear-gradient(135deg, ${card.placeholderGradient})` }}>
                   {card.imagePath ? (
-                    <Image src={card.imagePath} alt={card.title} fill
+                    <Image src={cld(card.imagePath!, 'w_600,h_352,c_fill')} alt={card.title} fill
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
                   ) : (

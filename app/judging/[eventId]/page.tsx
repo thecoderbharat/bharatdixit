@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { judgingEvents, judgingMediaItems } from '@/data/portfolio'
+import { cld, ytThumb, ytUrl } from '@/lib/cloudinary'
 
 export default function JudgingEventPage() {
   const { eventId } = useParams<{ eventId: string }>()
@@ -42,7 +43,7 @@ export default function JudgingEventPage() {
         <div className="absolute inset-0"
           style={{ background: `linear-gradient(135deg, ${event.placeholderGradient})` }}>
           {event.imagePath && (
-            <Image src={event.imagePath} alt={event.institution} fill
+            <Image src={cld(event.imagePath!, 'w_1920,h_1080,c_fill,g_face')} alt={event.institution} fill
               className="object-cover opacity-40" sizes="100vw" priority />
           )}
         </div>
@@ -216,24 +217,43 @@ export default function JudgingEventPage() {
                       style={{ background: `linear-gradient(135deg, ${item.placeholderGradient})` }}
                       onClick={() => item.type === 'image' ? setLightbox(item.id) : undefined}
                     >
-                      {item.imagePath && (
-                        <Image src={item.imagePath} alt={item.title} fill
+                      {/* Show Cloudinary image OR YouTube thumbnail */}
+                      {item.type === 'image' && item.imagePath && (
+                        <Image src={cld(item.imagePath, 'c_fill,g_auto')} alt={item.title} fill
                           className="object-cover group-hover:scale-105 transition-transform duration-500"
                           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
+                      )}
+                      {item.type === 'video' && item.youtubeId && (
+                        <Image src={ytThumb(item.youtubeId)} alt={item.title} fill
+                          className="object-cover"
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          unoptimized />
                       )}
 
                       {/* Video play button */}
                       {item.type === 'video' && (
-                        <a href={item.videoUrl ?? '#'} target="_blank" rel="noopener noreferrer"
-                          className="absolute inset-0 flex items-center justify-center">
-                          <div className="w-16 h-16 rounded-full bg-neon/20 backdrop-blur-sm border border-neon/40
-                                          flex items-center justify-center group-hover:bg-neon/30
-                                          group-hover:shadow-2xl group-hover:shadow-neon/40 transition-all duration-300">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
-                              <polygon points="5,3 19,12 5,21"/>
-                            </svg>
+                        item.youtubeId ? (
+                          <a href={ytUrl(item.youtubeId)} target="_blank" rel="noopener noreferrer"
+                            aria-label={`Watch ${item.title} on YouTube`}
+                            className="absolute inset-0 flex items-center justify-center">
+                            <div className="w-16 h-16 rounded-full bg-neon/20 backdrop-blur-sm border border-neon/40
+                                            flex items-center justify-center group-hover:bg-neon/30
+                                            group-hover:shadow-2xl group-hover:shadow-neon/40 transition-all duration-300">
+                              <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                                <polygon points="5,3 19,12 5,21"/>
+                              </svg>
+                            </div>
+                          </a>
+                        ) : (
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-sm border border-white/20
+                                            flex items-center justify-center">
+                              <svg width="24" height="24" viewBox="0 0 24 24" fill="white" fillOpacity="0.4">
+                                <polygon points="5,3 19,12 5,21"/>
+                              </svg>
+                            </div>
                           </div>
-                        </a>
+                        )
                       )}
 
                       {/* Image zoom icon */}
@@ -309,7 +329,7 @@ export default function JudgingEventPage() {
                 <div className="relative rounded-xl overflow-hidden bg-surface-container"
                   style={{ height: 'min(75vh, 600px)', background: `linear-gradient(135deg, ${item.placeholderGradient})` }}>
                   {item.imagePath && (
-                    <Image src={item.imagePath} alt={item.title} fill className="object-contain" sizes="1200px" />
+                    <Image src={cld(item.imagePath, 'c_limit,w_1200')} alt={item.title} fill className="object-contain" sizes="1200px" />
                   )}
                 </div>
                 {/* Caption */}

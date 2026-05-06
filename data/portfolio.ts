@@ -167,7 +167,9 @@ export interface Whitepaper {
   /** Internal Next.js route — if set, card navigates here instead of opening pdfUrl directly */
   route?: string
   iconName: string
-  /** Set to '/whitepapers/<name>.webp' for real thumbnails */
+  /** Cloudinary public ID for the PDF — e.g. 'bharatdixit/whitepapers/vigorus-ai-v11' */
+  pdfPublicId: string | null
+  /** Cloudinary public ID for thumbnail image */
   thumbnailPath: string | null
   gradient: string
 }
@@ -180,7 +182,8 @@ export const whitepapers: Whitepaper[] = [
     title: 'Vigorus.ai — The Future of Intelligent Healthcare Infrastructure',
     description: 'A comprehensive 35-page technical whitepaper authored by Bharat Kumar Dixit covering Voice-First EMR, Blockchain PHR, autonomous NHCX insurance claims, and native ABDM integration — the complete architecture blueprint for AI-native clinical systems.',
     meta: '2026 · 35 PAGES · AUTHORED BY BHARAT DIXIT',
-    pdfUrl: '/whitepapers/vigorus-ai-whitepaper-v11.pdf',
+    pdfUrl: '/whitepapers/vigorus-ai-whitepaper-v11.pdf', // legacy local path — will be overridden by pdfPublicId
+    pdfPublicId: null, // → set to 'bharatdixit/whitepapers/vigorus-ai-v11' after uploading to Cloudinary
     route: '/whitepapers/vigorus-ai',
     iconName: 'HeartPulse',
     thumbnailPath: null,
@@ -194,6 +197,7 @@ export const whitepapers: Whitepaper[] = [
     description: "A strategic and technical whitepaper by Bharat Kumar Dixit exploring a next-generation digital health platform built for India's scale. Covers interoperable health records, AI-powered diagnostics, multi-lingual patient engagement, and a national-scale ABDM-native architecture.",
     meta: '2025 · AUTHORED BY BHARAT DIXIT',
     pdfUrl: '#',
+    pdfPublicId: null, // → set to 'bharatdixit/whitepapers/svasthax' after uploading
     route: '/whitepapers/svasthax',
     iconName: 'Activity',
     thumbnailPath: null,
@@ -207,6 +211,7 @@ export const whitepapers: Whitepaper[] = [
     description: "A detailed architectural whitepaper by Bharat Kumar Dixit examining the UK's modern banking infrastructure — Open Banking APIs, PSD2 compliance, real-time payment rails (Faster Payments, CHAPS), cloud-native core banking migration, and the technical blueprint for resilient financial systems.",
     meta: '2025 · AUTHORED BY BHARAT DIXIT',
     pdfUrl: '#',
+    pdfPublicId: null, // → set to 'bharatdixit/whitepapers/uk-banking' after uploading
     route: '/whitepapers/uk-banking',
     iconName: 'Landmark',
     thumbnailPath: null,
@@ -226,8 +231,9 @@ export interface GalleryImage {
 
 export interface GalleryVideo {
   id: string; tag: string; title: string
-  thumbnailPath: string | null
-  placeholderGradient: string; videoUrl: string
+  /** YouTube video ID — the part after ?v= in the YouTube URL e.g. 'dQw4w9WgXcQ' */
+  youtubeId: string | null
+  placeholderGradient: string
 }
 
 export const galleryImages: GalleryImage[] = [
@@ -246,9 +252,11 @@ export const galleryImages: GalleryImage[] = [
 ]
 
 export const galleryVideos: GalleryVideo[] = [
-  { id: 'v1', tag: 'KEYNOTE SPEECH',     title: 'The Future of Decentralised Architecture', thumbnailPath: null, placeholderGradient: '#0a1828,#1a3050', videoUrl: '#' },
-  { id: 'v2', tag: 'PANEL DISCUSSION',   title: 'Bridging the Gap: Mentorship in AI',       thumbnailPath: null, placeholderGradient: '#101820,#202838', videoUrl: '#' },
-  { id: 'v3', tag: 'DEVELOPER INSIGHTS', title: 'Mastering Systems Design: Live Coding',    thumbnailPath: null, placeholderGradient: '#0c1820,#182838', videoUrl: '#' },
+  // youtubeId: Set this to the YouTube video ID when you have the video uploaded.
+  // Example: if your YouTube URL is https://youtube.com/watch?v=ABC123xyz then youtubeId: 'ABC123xyz'
+  { id: 'v1', tag: 'KEYNOTE SPEECH',     title: 'The Future of Decentralised Architecture', youtubeId: null, placeholderGradient: '#0a1828,#1a3050' },
+  { id: 'v2', tag: 'PANEL DISCUSSION',   title: 'Bridging the Gap: Mentorship in AI',       youtubeId: null, placeholderGradient: '#101820,#202838' },
+  { id: 'v3', tag: 'DEVELOPER INSIGHTS', title: 'Mastering Systems Design: Live Coding',    youtubeId: null, placeholderGradient: '#0c1820,#182838' },
 ]
 
 export const galleryCategories: { value: GalleryCategory; label: string }[] = [
@@ -334,83 +342,72 @@ export interface MediaCard {
   url: string
 }
 
+// ─────────────────────────────────────────────────────────────────
+// mediaCards — matches your Cloudinary media-coverage/ subfolders exactly:
+//   bharatdixit/media-coverage/local-media/
+//   bharatdixit/media-coverage/articles-nationals/
+//   bharatdixit/media-coverage/taarezameenpar-magzine/
+//   bharatdixit/media-coverage/lawstreet-journal/
+//
+// To add an image to a card:
+//   1. Upload to the matching Cloudinary subfolder
+//   2. Set imagePath: 'bharatdixit/media-coverage/<folder>/<filename>'
+// ─────────────────────────────────────────────────────────────────
 export const mediaCards: MediaCard[] = [
   {
-    id: 'deccan-herald',
-    outlet: 'Deccan Herald',
-    category: 'Feature Article',
-    title: 'How AI is Transforming Healthcare Documentation in India',
-    description: "Bharat Kumar Dixit shares his architectural vision for AI-native clinical systems, discussing Vigorus.ai's approach to solving healthcare's documentation crisis across 40+ languages.",
-    date: 'March 2025',
+    id: 'local-media',
+    outlet: 'Local Media',
+    category: 'Feature Coverage',
+    title: 'Bharat Dixit Featured in Local Media — Tech Leadership & Innovation',
+    description: 'Local media coverage highlighting the journey and achievements of Bharat Kumar Dixit — from Senior Mobile Architect at IBM to CTO at Vigorus.ai, and his contributions to India's digital health landscape.',
+    date: '2025',
     type: 'feature',
-    imagePath: null,
+    // Cloudinary folder: bharatdixit/media-coverage/local-media/
+    imagePath: null,   // → e.g. 'bharatdixit/media-coverage/local-media/feature-cover'
     placeholderGradient: '#0a1828,#1a2848',
     accentColor: '#00d2ff',
     url: '#',
   },
   {
-    id: 'forbes-india',
-    outlet: 'Forbes India',
-    category: 'Interview',
-    title: 'The Architect Behind India\'s Next Healthcare Revolution',
-    description: "An in-depth interview with Bharat Dixit on building enterprise mobile platforms at IBM, founding Vigorus.ai, and why clean architecture principles matter more than ever in the AI era.",
-    date: 'January 2025',
-    type: 'interview',
-    imagePath: null,
+    id: 'articles-nationals',
+    outlet: 'National Publications',
+    category: 'Article Feature',
+    title: 'Bharat Dixit in National Publications — Architecture, AI & Healthcare',
+    description: 'Featured in leading national publications for expertise in AI-native healthcare platforms, enterprise mobile architecture, and digital health innovation. Coverage spanning technology, business, and health sectors.',
+    date: '2024–2025',
+    type: 'article',
+    // Cloudinary folder: bharatdixit/media-coverage/articles-nationals/
+    imagePath: null,   // → e.g. 'bharatdixit/media-coverage/articles-nationals/article-1'
     placeholderGradient: '#0c1020,#1a1c30',
     accentColor: '#d4af37',
     url: '#',
   },
   {
-    id: 'your-story',
-    outlet: 'YourStory',
-    category: 'Founder Feature',
-    title: 'From IBM Architect to Healthcare AI CTO — The Bharat Dixit Story',
-    description: 'YourStory covers the journey of Bharat Kumar Dixit from senior mobile architect to CTO, including his work on the Shree Kishori Priya Foundation and his philosophy on purpose-driven technology.',
-    date: 'November 2024',
+    id: 'taarezameenpar-magzine',
+    outlet: 'Taarezameenpar Magazine',
+    category: 'Magazine Feature',
+    title: 'Bharat Dixit — Taarezameenpar Magazine Coverage',
+    description: 'Featured in Taarezameenpar Magazine for his work on technology-driven social impact, including the founding of Shree Kishori Priya Foundation and the use of digital platforms for community welfare.',
+    date: '2024',
     type: 'feature',
-    imagePath: null,
+    // Cloudinary folder: bharatdixit/media-coverage/taarezameenpar-magzine/
+    imagePath: null,   // → e.g. 'bharatdixit/media-coverage/taarezameenpar-magzine/magazine-cover'
     placeholderGradient: '#101828,#1c2a3a',
     accentColor: '#b4c5ff',
     url: '#',
   },
   {
-    id: 'inc42',
-    outlet: 'Inc42',
-    category: 'Tech Leadership',
-    title: 'Why India\'s Healthcare System Needs Blockchain-Native Patient Records',
-    description: "Bharat Dixit makes the technical case for blockchain PHR in India's healthcare system, explaining the architectural decisions behind Vigorus.ai's ABDM-native approach.",
-    date: 'September 2024',
+    id: 'lawstreet-journal',
+    outlet: 'Lawstreet Journal',
+    category: 'Legal Tech Feature',
+    title: 'Bharat Dixit in Lawstreet Journal — Technology & Compliance',
+    description: 'Lawstreet Journal features Bharat Kumar Dixit on the intersection of technology and legal compliance — covering healthcare data privacy, ABDM regulatory architecture, and the legal framework for AI-driven clinical systems.',
+    date: '2024',
     type: 'article',
-    imagePath: null,
+    // Cloudinary folder: bharatdixit/media-coverage/lawstreet-journal/
+    imagePath: null,   // → e.g. 'bharatdixit/media-coverage/lawstreet-journal/feature-1'
     placeholderGradient: '#0a1020,#162028',
     accentColor: '#00d2ff',
-    url: '#',
-  },
-  {
-    id: 'et-tech',
-    outlet: 'Economic Times Technology',
-    category: 'Panel Discussion',
-    title: 'Enterprise Mobile Architecture in the Age of AI — Panel Expert',
-    description: 'Featured as a panel expert at ET Technology Summit discussing the convergence of mobile architecture and AI, and the challenges of deploying large language models in clinical environments.',
-    date: 'July 2024',
-    type: 'video',
-    imagePath: null,
-    placeholderGradient: '#0c1428,#1a2040',
-    accentColor: '#d4af37',
-    url: '#',
-  },
-  {
-    id: 'wired-india',
-    outlet: 'Wired India',
-    category: 'Deep Dive',
-    title: 'The Zero-Trust Healthcare Network: A Technical Deep Dive',
-    description: 'A technical deep-dive co-authored with Wired India exploring the implementation of Zero Trust architecture in medical IoT environments, drawing from real-world deployments across 3 hospital networks.',
-    date: 'May 2024',
-    type: 'article',
-    imagePath: null,
-    placeholderGradient: '#101018,#1c1828',
-    accentColor: '#d4bbff',
     url: '#',
   },
 ]
@@ -422,33 +419,41 @@ export interface MediaDetailItem {
   type: 'image' | 'video'
   title: string
   description: string
-  /** Drop into public/media/<mediaCardId>/<id>.webp */
+  /** Cloudinary public ID — set after uploading to bharatdixit/media-coverage/<outlet>/ */
   imagePath: string | null
-  videoUrl: string | null
+  /** YouTube video ID — the part after ?v= in the YouTube URL */
+  youtubeId: string | null
   placeholderGradient: string
 }
 
+// ─────────────────────────────────────────────────────────────────
+// mediaDetailItems — media grid items shown when a card is selected.
+// imagePath format: 'bharatdixit/media-coverage/<folder>/<filename>'
+// youtubeId: paste the YouTube video ID (part after ?v= in the URL)
+// ─────────────────────────────────────────────────────────────────
 export const mediaDetailItems: MediaDetailItem[] = [
-  // Deccan Herald
-  { id: 'dh-1', mediaCardId: 'deccan-herald', type: 'image', title: 'Publication Cover Feature', description: 'Full-page feature in Deccan Herald technology section covering AI in Indian healthcare.', imagePath: null, videoUrl: null, placeholderGradient: '#0a1428,#1a2848' },
-  { id: 'dh-2', mediaCardId: 'deccan-herald', type: 'image', title: 'Interview Session', description: 'Behind-the-scenes from the editorial interview session at the Deccan Herald offices.', imagePath: null, videoUrl: null, placeholderGradient: '#0c1828,#1c2a40' },
-  { id: 'dh-3', mediaCardId: 'deccan-herald', type: 'video', title: 'Recorded Interview', description: 'Video interview discussing Vigorus.ai platform architecture and clinical AI deployment.', imagePath: null, videoUrl: '#', placeholderGradient: '#0a1020,#182030' },
-  // Forbes India
-  { id: 'fi-1', mediaCardId: 'forbes-india', type: 'image', title: 'Forbes Editorial Shoot', description: 'Professional editorial photography for the Forbes India feature spread.', imagePath: null, videoUrl: null, placeholderGradient: '#0c1020,#1a1c30' },
-  { id: 'fi-2', mediaCardId: 'forbes-india', type: 'image', title: 'Magazine Feature Page', description: 'Printed Forbes India magazine feature — January 2025 edition.', imagePath: null, videoUrl: null, placeholderGradient: '#101820,#202838' },
-  { id: 'fi-3', mediaCardId: 'forbes-india', type: 'video', title: 'Forbes Digital Interview', description: 'Extended digital interview for Forbes India YouTube channel.', imagePath: null, videoUrl: '#', placeholderGradient: '#0a1828,#182038' },
-  // YourStory
-  { id: 'ys-1', mediaCardId: 'your-story', type: 'image', title: 'YourStory Feature Article', description: 'Digital article with custom photography published on YourStory platform.', imagePath: null, videoUrl: null, placeholderGradient: '#101828,#1c2a3a' },
-  { id: 'ys-2', mediaCardId: 'your-story', type: 'video', title: 'Founder Story Video', description: 'Short documentary-style video produced by YourStory covering the founding journey.', imagePath: null, videoUrl: '#', placeholderGradient: '#0a1020,#162028' },
-  // Inc42
-  { id: 'inc-1', mediaCardId: 'inc42', type: 'image', title: 'Inc42 Article Screenshot', description: 'Published article on Inc42 covering blockchain patient records in India.', imagePath: null, videoUrl: null, placeholderGradient: '#0a1020,#162028' },
-  { id: 'inc-2', mediaCardId: 'inc42', type: 'image', title: 'Technical Diagram Published', description: 'Architectural diagrams from the Inc42 technical piece on PHR systems.', imagePath: null, videoUrl: null, placeholderGradient: '#0c1428,#1a2040' },
-  // ET Tech
-  { id: 'et-1', mediaCardId: 'et-tech', type: 'video', title: 'Panel Discussion Recording', description: 'Full recording of the ET Technology Summit panel on AI and mobile architecture.', imagePath: null, videoUrl: '#', placeholderGradient: '#0c1428,#1a2040' },
-  { id: 'et-2', mediaCardId: 'et-tech', type: 'image', title: 'Summit Stage Photo', description: 'On-stage at the ET Technology Summit during the panel discussion.', imagePath: null, videoUrl: null, placeholderGradient: '#101018,#1c1828' },
-  // Wired
-  { id: 'wi-1', mediaCardId: 'wired-india', type: 'image', title: 'Wired India Feature', description: 'Published deep-dive article in Wired India covering Zero Trust healthcare networks.', imagePath: null, videoUrl: null, placeholderGradient: '#101018,#1c1828' },
-  { id: 'wi-2', mediaCardId: 'wired-india', type: 'video', title: 'Explainer Video', description: 'Technical explainer video produced alongside the Wired India article.', imagePath: null, videoUrl: '#', placeholderGradient: '#0c1020,#1a1830' },
+  // ── Local Media ── folder: bharatdixit/media-coverage/local-media/
+  { id: 'lm-1', mediaCardId: 'local-media', type: 'image', title: 'Local Media Feature', description: 'Feature coverage in local media highlighting achievements as International Tech Leader and CTO.', imagePath: null, youtubeId: null, placeholderGradient: '#0a1428,#1a2848' },
+  { id: 'lm-2', mediaCardId: 'local-media', type: 'image', title: 'Press Interview', description: 'Press interview session covering Vigorus.ai platform and digital health innovation.', imagePath: null, youtubeId: null, placeholderGradient: '#0c1828,#1c2a40' },
+  { id: 'lm-3', mediaCardId: 'local-media', type: 'image', title: 'Award Ceremony Coverage', description: 'Local media coverage of recognition and awards received for technology leadership.', imagePath: null, youtubeId: null, placeholderGradient: '#0a1020,#182030' },
+  { id: 'lm-4', mediaCardId: 'local-media', type: 'video', title: 'TV Interview Recording', description: 'Television interview on technology entrepreneurship and AI in healthcare.', imagePath: null, youtubeId: null, placeholderGradient: '#101828,#1c2840' },
+
+  // ── National Articles ── folder: bharatdixit/media-coverage/articles-nationals/
+  { id: 'an-1', mediaCardId: 'articles-nationals', type: 'image', title: 'National Publication Feature', description: 'Feature article in a leading national publication on AI-native healthcare architecture.', imagePath: null, youtubeId: null, placeholderGradient: '#0c1020,#1a1c30' },
+  { id: 'an-2', mediaCardId: 'articles-nationals', type: 'image', title: 'Tech Leadership Profile', description: 'In-depth profile on the journey from IBM Senior Architect to healthcare AI CTO.', imagePath: null, youtubeId: null, placeholderGradient: '#101820,#202838' },
+  { id: 'an-3', mediaCardId: 'articles-nationals', type: 'image', title: 'Digital Health Article', description: 'Published piece on India digital health ecosystem transformation and ABDM architecture.', imagePath: null, youtubeId: null, placeholderGradient: '#0a1828,#182038' },
+  { id: 'an-4', mediaCardId: 'articles-nationals', type: 'video', title: 'National Media Interview', description: 'Recorded interview on enterprise mobile architecture and the future of healthcare AI.', imagePath: null, youtubeId: null, placeholderGradient: '#0c1428,#1a2040' },
+
+  // ── Taarezameenpar Magazine ── folder: bharatdixit/media-coverage/taarezameenpar-magzine/
+  { id: 'tm-1', mediaCardId: 'taarezameenpar-magzine', type: 'image', title: 'Magazine Cover Story', description: 'Cover story in Taarezameenpar Magazine on technology-driven social impact and NGO work.', imagePath: null, youtubeId: null, placeholderGradient: '#101828,#1c2a3a' },
+  { id: 'tm-2', mediaCardId: 'taarezameenpar-magzine', type: 'image', title: 'Editorial Shoot', description: 'Professional editorial photography for the Taarezameenpar Magazine feature spread.', imagePath: null, youtubeId: null, placeholderGradient: '#0a1020,#162028' },
+  { id: 'tm-3', mediaCardId: 'taarezameenpar-magzine', type: 'image', title: 'NGO Feature Article', description: 'Magazine feature on Shree Kishori Priya Foundation and its mission in Vrindavan.', imagePath: null, youtubeId: null, placeholderGradient: '#0c1828,#1a2838' },
+  { id: 'tm-4', mediaCardId: 'taarezameenpar-magzine', type: 'video', title: 'Magazine Interview Video', description: 'Video interview for Taarezameenpar Magazine digital edition.', imagePath: null, youtubeId: null, placeholderGradient: '#101018,#1c1c28' },
+
+  // ── Lawstreet Journal ── folder: bharatdixit/media-coverage/lawstreet-journal/
+  { id: 'lj-1', mediaCardId: 'lawstreet-journal', type: 'image', title: 'Lawstreet Journal Feature', description: 'Featured in Lawstreet Journal on healthcare data privacy and ABDM regulatory compliance architecture.', imagePath: null, youtubeId: null, placeholderGradient: '#0a1020,#162028' },
+  { id: 'lj-2', mediaCardId: 'lawstreet-journal', type: 'image', title: 'Legal Tech Article', description: 'Article on the legal and technical framework for AI-driven clinical documentation systems in India.', imagePath: null, youtubeId: null, placeholderGradient: '#0c1428,#1a2040' },
+  { id: 'lj-3', mediaCardId: 'lawstreet-journal', type: 'video', title: 'Legal Tech Panel', description: 'Panel discussion on technology compliance and data protection in Indian healthcare systems.', imagePath: null, youtubeId: null, placeholderGradient: '#101018,#1c1828' },
 ]
 
 // ── Judging Event Media ───────────────────────────────────────────
@@ -458,31 +463,32 @@ export interface JudgingMediaItem {
   type: 'image' | 'video'
   title: string
   description: string
-  /** Drop into public/judging/<judgingEventId>/<id>.webp */
+  /** Cloudinary public ID — set after uploading to bharatdixit/judging/<event>/ */
   imagePath: string | null
-  videoUrl: string | null
+  /** YouTube video ID — the part after ?v= in the YouTube URL */
+  youtubeId: string | null
   placeholderGradient: string
 }
 
 export const judgingMediaItems: JudgingMediaItem[] = [
   // HackIndia
-  { id: 'hi-1', judgingEventId: 'hackindia', type: 'image', title: 'Judging Panel — Opening Ceremony', description: 'On stage at HackIndia opening ceremony with fellow judges and organisers.', imagePath: null, videoUrl: null, placeholderGradient: '#0a1428,#1a2848' },
-  { id: 'hi-2', judgingEventId: 'hackindia', type: 'image', title: 'Evaluating Finalist Teams', description: 'Reviewing finalist team presentations during the technical evaluation round.', imagePath: null, videoUrl: null, placeholderGradient: '#0c1828,#1c2a40' },
-  { id: 'hi-3', judgingEventId: 'hackindia', type: 'video', title: 'Post-Judging Mentorship Session', description: 'Recorded mentorship session with top 10 finalist teams on architecture and scaling.', imagePath: null, videoUrl: '#', placeholderGradient: '#0a1020,#182030' },
-  { id: 'hi-4', judgingEventId: 'hackindia', type: 'image', title: 'Award Ceremony', description: 'Presenting awards to winning teams at the HackIndia finals.', imagePath: null, videoUrl: null, placeholderGradient: '#101828,#202838' },
+  { id: 'hi-1', judgingEventId: 'hackindia', type: 'image', title: 'Judging Panel — Opening Ceremony', description: 'On stage at HackIndia opening ceremony with fellow judges and organisers.', imagePath: null, youtubeId: null, placeholderGradient: '#0a1428,#1a2848' },
+  { id: 'hi-2', judgingEventId: 'hackindia', type: 'image', title: 'Evaluating Finalist Teams', description: 'Reviewing finalist team presentations during the technical evaluation round.', imagePath: null, youtubeId: null, placeholderGradient: '#0c1828,#1c2a40' },
+  { id: 'hi-3', judgingEventId: 'hackindia', type: 'video', title: 'Post-Judging Mentorship Session', description: 'Recorded mentorship session with top 10 finalist teams on architecture and scaling.', imagePath: null, youtubeId: null, placeholderGradient: '#0a1020,#182030' },
+  { id: 'hi-4', judgingEventId: 'hackindia', type: 'image', title: 'Award Ceremony', description: 'Presenting awards to winning teams at the HackIndia finals.', imagePath: null, youtubeId: null, placeholderGradient: '#101828,#202838' },
   // NIT Delhi
-  { id: 'nd-1', judgingEventId: 'nit-delhi', type: 'image', title: 'NIT Delhi Innovation Summit', description: 'Arriving at the NIT Delhi campus for the Annual Innovation Summit.', imagePath: null, videoUrl: null, placeholderGradient: '#101828,#1c2a40' },
-  { id: 'nd-2', judgingEventId: 'nit-delhi', type: 'image', title: 'Project Evaluation Session', description: 'Evaluating mobile application projects submitted by final-year students.', imagePath: null, videoUrl: null, placeholderGradient: '#0a1020,#162028' },
-  { id: 'nd-3', judgingEventId: 'nit-delhi', type: 'video', title: 'Q&A Session Recording', description: 'Recorded Q&A session with students on careers in mobile architecture.', imagePath: null, videoUrl: '#', placeholderGradient: '#0c1020,#1a1830' },
+  { id: 'nd-1', judgingEventId: 'nit-delhi', type: 'image', title: 'NIT Delhi Innovation Summit', description: 'Arriving at the NIT Delhi campus for the Annual Innovation Summit.', imagePath: null, youtubeId: null, placeholderGradient: '#101828,#1c2a40' },
+  { id: 'nd-2', judgingEventId: 'nit-delhi', type: 'image', title: 'Project Evaluation Session', description: 'Evaluating mobile application projects submitted by final-year students.', imagePath: null, youtubeId: null, placeholderGradient: '#0a1020,#162028' },
+  { id: 'nd-3', judgingEventId: 'nit-delhi', type: 'video', title: 'Q&A Session Recording', description: 'Recorded Q&A session with students on careers in mobile architecture.', imagePath: null, youtubeId: null, placeholderGradient: '#0c1020,#1a1830' },
   // Chitkara
-  { id: 'cu-1', judgingEventId: 'chitkara', type: 'image', title: 'Chitkara TechFest Stage', description: 'Delivering keynote on clean architecture principles at Chitkara University TechFest.', imagePath: null, videoUrl: null, placeholderGradient: '#0c1020,#1a1c30' },
-  { id: 'cu-2', judgingEventId: 'chitkara', type: 'image', title: 'Mentoring Winning Teams', description: 'One-on-one mentorship with the top-ranked team post-event.', imagePath: null, videoUrl: null, placeholderGradient: '#101020,#1c1c30' },
-  { id: 'cu-3', judgingEventId: 'chitkara', type: 'video', title: 'Keynote Recording', description: 'Full recording of the keynote address on modern mobile architecture.', imagePath: null, videoUrl: '#', placeholderGradient: '#0a1020,#182030' },
+  { id: 'cu-1', judgingEventId: 'chitkara', type: 'image', title: 'Chitkara TechFest Stage', description: 'Delivering keynote on clean architecture principles at Chitkara University TechFest.', imagePath: null, youtubeId: null, placeholderGradient: '#0c1020,#1a1c30' },
+  { id: 'cu-2', judgingEventId: 'chitkara', type: 'image', title: 'Mentoring Winning Teams', description: 'One-on-one mentorship with the top-ranked team post-event.', imagePath: null, youtubeId: null, placeholderGradient: '#101020,#1c1c30' },
+  { id: 'cu-3', judgingEventId: 'chitkara', type: 'video', title: 'Keynote Recording', description: 'Full recording of the keynote address on modern mobile architecture.', imagePath: null, youtubeId: null, placeholderGradient: '#0a1020,#182030' },
   // NIT Kolkata
-  { id: 'nk-1', judgingEventId: 'nit-kolkata', type: 'image', title: 'Hack-o-NiT Judging Panel', description: 'With the judging panel at Hack-o-NiT, NIT Kolkata.', imagePath: null, videoUrl: null, placeholderGradient: '#0a1828,#1a3050' },
-  { id: 'nk-2', judgingEventId: 'nit-kolkata', type: 'image', title: 'Project Demonstration Review', description: 'Reviewing AI and mobile project demonstrations from engineering students.', imagePath: null, videoUrl: null, placeholderGradient: '#0c1828,#1a2840' },
-  { id: 'nk-3', judgingEventId: 'nit-kolkata', type: 'video', title: 'Feedback Session', description: 'Video feedback session for participating teams on architecture and innovation.', imagePath: null, videoUrl: '#', placeholderGradient: '#0a1020,#162030' },
+  { id: 'nk-1', judgingEventId: 'nit-kolkata', type: 'image', title: 'Hack-o-NiT Judging Panel', description: 'With the judging panel at Hack-o-NiT, NIT Kolkata.', imagePath: null, youtubeId: null, placeholderGradient: '#0a1828,#1a3050' },
+  { id: 'nk-2', judgingEventId: 'nit-kolkata', type: 'image', title: 'Project Demonstration Review', description: 'Reviewing AI and mobile project demonstrations from engineering students.', imagePath: null, youtubeId: null, placeholderGradient: '#0c1828,#1a2840' },
+  { id: 'nk-3', judgingEventId: 'nit-kolkata', type: 'video', title: 'Feedback Session', description: 'Video feedback session for participating teams on architecture and innovation.', imagePath: null, youtubeId: null, placeholderGradient: '#0a1020,#162030' },
   // ABES / Smart India
-  { id: 'ab-1', judgingEventId: 'smart-india', type: 'image', title: 'ABES Hackathon Invitation', description: 'Official invitation and judge appointment letter for ABES Hackathon.', imagePath: null, videoUrl: null, placeholderGradient: '#0a1020,#162030' },
-  { id: 'ab-2', judgingEventId: 'smart-india', type: 'image', title: 'Event Preparation', description: 'Briefing session with organising team prior to the hackathon commencement.', imagePath: null, videoUrl: null, placeholderGradient: '#101828,#1c2838' },
+  { id: 'ab-1', judgingEventId: 'smart-india', type: 'image', title: 'ABES Hackathon Invitation', description: 'Official invitation and judge appointment letter for ABES Hackathon.', imagePath: null, youtubeId: null, placeholderGradient: '#0a1020,#162030' },
+  { id: 'ab-2', judgingEventId: 'smart-india', type: 'image', title: 'Event Preparation', description: 'Briefing session with organising team prior to the hackathon commencement.', imagePath: null, youtubeId: null, placeholderGradient: '#101828,#1c2838' },
 ]

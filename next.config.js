@@ -1,14 +1,27 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    // Allow all remote domains for future CDN/external images
     remotePatterns: [
-      { protocol: 'https', hostname: '**' },
+      // Cloudinary — images and PDFs
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        pathname: '/**',
+      },
+      // YouTube — video thumbnails
+      {
+        protocol: 'https',
+        hostname: 'img.youtube.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'i.ytimg.com',
+        pathname: '/**',
+      },
     ],
-    // Formats: prefer AVIF then WebP
     formats: ['image/avif', 'image/webp'],
   },
-  // Enable strict mode for better debugging
   reactStrictMode: true,
 }
 

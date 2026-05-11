@@ -29,7 +29,7 @@ export interface CoverCard {
 }
 
 export const coverCards: CoverCard[] = [
-  { id: 'judging',       tag: 'Judge & Mentor',      tagCls: 'text-cyan-400',   title: 'Judging & Mentorship',        desc: 'Technical jury member at HackIndia, NIT Kolkata, NIT Delhi, Chitkara University, Smart India Hackathon, and more.',       imagePath: null, placeholderBg: 'from-[#0a1828] to-[#1a3050]' },
+  { id: 'judging',       tag: 'Judge & Mentor',      tagCls: 'text-cyan-400',   title: 'Judging & Mentorship',        desc: 'Technical jury member at HackIndia, NIT Kolkata, NIT Delhi, Chitkara University, ABES Hackathon, and more.',       imagePath: null, placeholderBg: 'from-[#0a1828] to-[#1a3050]' },
   { id: 'ibm-training',  tag: 'Certified Excellence',tagCls: 'metallic-text',   title: 'IBM Enterprise Training',     desc: 'Completed advanced certification in enterprise cloud mobility and architectural scalability frameworks.',                   imagePath: null, placeholderBg: 'from-[#101828] to-[#1a2038]' },
   { id: 'recognitions',  tag: 'Industry Honours',    tagCls: 'text-primary',    title: 'Appreciation & Recognitions', desc: 'Recognised by peers and leadership for exceptional contributions to enterprise mobile architecture.',                    imagePath: null, placeholderBg: 'from-[#0a1020] to-[#1a2030]' },
   { id: 'media',         tag: 'Press Coverage',      tagCls: 'text-cyan-400',   title: 'Media Recognitions',          desc: 'Featured in leading technology publications for insights on AI integration and digital transformation.',                 imagePath: null, placeholderBg: 'from-[#0c1020] to-[#182030]' },
@@ -488,7 +488,7 @@ export const judgingMediaItems: JudgingMediaItem[] = [
   { id: 'nk-1', judgingEventId: 'nit-kolkata', type: 'image', title: 'Hack-o-NiT Judging Panel', description: 'With the judging panel at Hack-o-NiT, NIT Kolkata.', imagePath: null, youtubeId: null, placeholderGradient: '#0a1828,#1a3050' },
   { id: 'nk-2', judgingEventId: 'nit-kolkata', type: 'image', title: 'Project Demonstration Review', description: 'Reviewing AI and mobile project demonstrations from engineering students.', imagePath: null, youtubeId: null, placeholderGradient: '#0c1828,#1a2840' },
   { id: 'nk-3', judgingEventId: 'nit-kolkata', type: 'video', title: 'Feedback Session', description: 'Video feedback session for participating teams on architecture and innovation.', imagePath: null, youtubeId: null, placeholderGradient: '#0a1020,#162030' },
-  // ABES / Smart India
+  // ABES / ABES
   { id: 'ab-1', judgingEventId: 'smart-india', type: 'image', title: 'ABES Hackathon Invitation', description: 'Official invitation and judge appointment letter for ABES Hackathon.', imagePath: null, youtubeId: null, placeholderGradient: '#0a1020,#162030' },
   { id: 'ab-2', judgingEventId: 'smart-india', type: 'image', title: 'Event Preparation', description: 'Briefing session with organising team prior to the hackathon commencement.', imagePath: null, youtubeId: null, placeholderGradient: '#101828,#1c2838' },
 ]

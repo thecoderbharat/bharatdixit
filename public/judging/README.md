@@ -7,7 +7,7 @@ Place one image per event. Drop files here and update `imagePath` in `data/portf
 | nit-kolkata.webp       | NIT Kolkata            |
 | nit-delhi.webp         | NIT Delhi              |
 | chitkara.webp          | Chitkara University    |
-| smart-india.webp       | Smart India Hackathon  |
+| smart-india.webp       | ABES Hackathon  |
 | amity.webp             | Amity University       |
 
 Recommended: 800×533px (3:2 ratio), WebP format.

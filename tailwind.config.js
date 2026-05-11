@@ -55,11 +55,14 @@ module.exports = {
         'error-container': '#93000a',
         'on-error': '#690005',
         'on-error-container': '#ffdad6',
+        // Brand accent tokens used across the app (gradients, badges, glows)
+        'gold': '#d4af37',
+        'neon': '#00d2ff',
       },
       fontFamily: {
-        headline: ['Space Grotesk', 'sans-serif'],
-        body: ['Inter', 'sans-serif'],
-        label: ['Inter', 'sans-serif'],
+        headline: ['var(--font-space-grotesk)', 'Space Grotesk', 'sans-serif'],
+        body: ['var(--font-inter)', 'Inter', 'sans-serif'],
+        label: ['var(--font-inter)', 'Inter', 'sans-serif'],
       },
       borderRadius: {
         DEFAULT: '0.125rem',

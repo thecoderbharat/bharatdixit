@@ -106,7 +106,7 @@ export default function SvasthaXPage() {
                   largest government health digitisation programme.
                 </p>
                 <div className="flex flex-wrap gap-4">
-                  <a href={PDF_HREF} target="_blank" rel="noopener noreferrer" download
+                  <a href={PDF_HREF} target="_blank" rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-8 py-4 bg-gold text-surface font-headline
                                font-bold uppercase tracking-widest text-xs rounded-xl hover:brightness-110
                                active:scale-95 transition-all shadow-lg shadow-gold/20">
@@ -256,7 +256,7 @@ export default function SvasthaXPage() {
               <p className="text-on-surface-variant text-sm mb-8 leading-relaxed">
                 CTO at Vigorus.ai · Senior Mobile Application Architect at IBM · International Tech Leader
               </p>
-              <a href={PDF_HREF} target="_blank" rel="noopener noreferrer" download
+              <a href={PDF_HREF} target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center gap-3 px-10 py-4 bg-gold text-surface font-headline
                            font-bold uppercase tracking-widest text-xs rounded-xl hover:brightness-110
                            active:scale-95 transition-all shadow-lg shadow-gold/20">

@@ -51,8 +51,12 @@ export function CoverFlow() {
     startTimer() // reset timer on manual nav
   }
 
+  // Tiles in this list don't navigate on click (their detail sections aren't ready yet).
+  const NON_CLICKABLE_IDS = new Set(['judging', 'media'])
+
   const handleClick = (id: string, idx: number) => {
     moveTo(idx)
+    if (NON_CLICKABLE_IDS.has(id)) return
     const el = document.getElementById(id)
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
@@ -97,11 +101,13 @@ export function CoverFlow() {
       >
         {coverCards.map((card, idx) => {
           const isActive = idx === activeIdx
+          const isClickable = !NON_CLICKABLE_IDS.has(card.id)
           return (
             <article
               key={card.id}
               onClick={() => handleClick(card.id, idx)}
-              className={`min-w-[400px] p-8 rounded-xl snap-center cursor-pointer transition-all duration-300
+              className={`min-w-[400px] p-8 rounded-xl snap-center transition-all duration-300
+                ${isClickable ? 'cursor-pointer' : 'cursor-default'}
                 ${isActive
                   ? 'bg-surface-container-highest border-2 border-primary/40 shadow-2xl shadow-primary/10 scale-105 relative z-10'
                   : 'bg-surface-container-high border border-outline-variant/10 hover:border-primary/30 group'}`}

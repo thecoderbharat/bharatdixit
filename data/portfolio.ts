@@ -363,7 +363,7 @@ export const mediaCards: MediaCard[] = [
     date: '2025',
     type: 'feature',
     // Cloudinary folder: bharatdixit/media-coverage/local-media/
-    imagePath: null,   // → e.g. 'bharatdixit/media-coverage/local-media/feature-cover'
+    imagePath: 'local-media_nnmfym',   // → e.g. 'bharatdixit/media-coverage/local-media/feature-cover'
     placeholderGradient: '#0a1828,#1a2848',
     accentColor: '#00d2ff',
     url: '#',
@@ -377,7 +377,7 @@ export const mediaCards: MediaCard[] = [
     date: '2024–2025',
     type: 'article',
     // Cloudinary folder: bharatdixit/media-coverage/articles-nationals/
-    imagePath: null,   // → e.g. 'bharatdixit/media-coverage/articles-nationals/article-1'
+    imagePath: 'articles-nationals_ycmoxs',   // → e.g. 'bharatdixit/media-coverage/articles-nationals/article-1'
     placeholderGradient: '#0c1020,#1a1c30',
     accentColor: '#d4af37',
     url: '#',
@@ -391,7 +391,7 @@ export const mediaCards: MediaCard[] = [
     date: '2024',
     type: 'feature',
     // Cloudinary folder: bharatdixit/media-coverage/taarezameenpar-magzine/
-    imagePath: null,   // → e.g. 'bharatdixit/media-coverage/taarezameenpar-magzine/magazine-cover'
+    imagePath: 'taarezameenpar-magzine_v412zi',   // → e.g. 'bharatdixit/media-coverage/taarezameenpar-magzine/magazine-cover'
     placeholderGradient: '#101828,#1c2a3a',
     accentColor: '#b4c5ff',
     url: '#',
@@ -405,7 +405,7 @@ export const mediaCards: MediaCard[] = [
     date: '2024',
     type: 'article',
     // Cloudinary folder: bharatdixit/media-coverage/lawstreet-journal/
-    imagePath: null,   // → e.g. 'bharatdixit/media-coverage/lawstreet-journal/feature-1'
+    imagePath: 'lawstreet-journal_gjbvma',   // → e.g. 'bharatdixit/media-coverage/lawstreet-journal/feature-1'
     placeholderGradient: '#0a1020,#162028',
     accentColor: '#00d2ff',
     url: '#',

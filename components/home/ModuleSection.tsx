@@ -355,7 +355,10 @@ export function ModuleSections() {
         const isCerts     = mod.id === 'certificates'
         const sectionBg   = idx % 2 === 0 ? 'bg-surface border-y border-white/5' : 'bg-surface-container-low'
 
-        if (isRec)   return <RecognitionsSlider key={mod.id} />
+        // ── Appreciation & Recognitions — temporarily hidden ──
+        // Re-enable by uncommenting the next line and removing the `null` return below.
+        // if (isRec)   return <RecognitionsSlider key={mod.id} />
+        if (isRec)   return null
         if (isMedia) return <MediaRecognitionsGrid key={mod.id} />
 
         if (isCerts) {

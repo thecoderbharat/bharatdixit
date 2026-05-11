@@ -15,9 +15,9 @@ export interface HeroSlide {
 }
 
 export const heroSlides: HeroSlide[] = [
-  { badge: 'Global Executive Leadership', badgeCls: 'border-primary/20 bg-primary/5', badgeTextCls: 'metallic-text', line1: 'International', line2: 'Tech Leader', line2Cls: 'from-primary to-secondary', desc: 'Spearheading nation-wide developer ecosystems and mentoring the next generation of full-stack innovators on a global stage.', btn1Cls: 'bg-gradient-to-r from-primary to-primary-container text-on-primary shadow-xl shadow-primary/10', btn1: 'View Milestones', btn2: 'Technical Vision', imagePath: 'bharatdixit/hero/slide-1', placeholderBg: 'from-[#0a1830] to-[#070e1d]' },
-  { badge: 'Advanced Technical Depth', badgeCls: 'border-secondary/20 bg-secondary/5', badgeTextCls: 'text-secondary', line1: 'Senior Mobile', line2: 'Architect', line2Cls: 'from-cyan-400 to-blue-500', desc: 'Engineering sophisticated mobile ecosystems and scaling enterprise architectures for mission-critical digital infrastructure.', btn1Cls: 'bg-gradient-to-r from-secondary to-[#7903fd] text-on-secondary shadow-xl shadow-secondary/10', btn1: 'Architecture Stack', btn2: 'Case Studies', imagePath: 'bharatdixit/hero/slide-2', placeholderBg: 'from-[#0a1428] to-[#070e1d]' },
-  { badge: 'Strategic Command', badgeCls: 'border-primary/20 bg-primary/5', badgeTextCls: 'metallic-text', line1: 'Chief Technology', line2: 'Officer', line2Cls: 'from-primary to-secondary', desc: 'Directing global AI-health-tech strategy and overseeing monumental technological transformations at scale.', btn1Cls: 'bg-gradient-to-r from-primary to-primary-container text-on-primary shadow-xl shadow-primary/10', btn1: 'Executive Presence', btn2: 'Connect Today', imagePath: 'bharatdixit/hero/slide-3', placeholderBg: 'from-[#0c1428] to-[#070e1d]' },
+  { badge: 'Global Executive Leadership', badgeCls: 'border-primary/20 bg-primary/5', badgeTextCls: 'metallic-text', line1: 'International', line2: 'Tech Leader', line2Cls: 'from-primary to-secondary', desc: 'Spearheading nation-wide developer ecosystems and mentoring the next generation of full-stack innovators on a global stage.', btn1Cls: 'bg-gradient-to-r from-primary to-primary-container text-on-primary shadow-xl shadow-primary/10', btn1: 'View Milestones', btn2: 'Technical Vision', imagePath: 'slide-1_hgi7r8', placeholderBg: 'from-[#0a1830] to-[#070e1d]' },
+  { badge: 'Advanced Technical Depth', badgeCls: 'border-secondary/20 bg-secondary/5', badgeTextCls: 'text-secondary', line1: 'Senior Mobile', line2: 'Architect', line2Cls: 'from-primary to-secondary', desc: 'Engineering sophisticated mobile ecosystems and scaling enterprise architectures for mission-critical digital infrastructure.', btn1Cls: 'bg-gradient-to-r from-secondary to-[#7903fd] text-on-secondary shadow-xl shadow-secondary/10', btn1: 'Architecture Stack', btn2: 'Case Studies', imagePath: 'slide-2_mzxbsh', placeholderBg: 'from-[#0a1428] to-[#070e1d]' },
+  { badge: 'Strategic Command', badgeCls: 'border-primary/20 bg-primary/5', badgeTextCls: 'metallic-text', line1: 'Chief Technology', line2: 'Officer', line2Cls: 'from-primary to-secondary', desc: 'Directing global AI-health-tech strategy and overseeing monumental technological transformations at scale.', btn1Cls: 'bg-gradient-to-r from-primary to-primary-container text-on-primary shadow-xl shadow-primary/10', btn1: 'Executive Presence', btn2: 'Connect Today', imagePath: 'slide-3_x4hogc', placeholderBg: 'from-[#0c1428] to-[#070e1d]' },
 ]
 
 // ── Cover Flow Cards ──────────────────────────────────────────────
@@ -196,7 +196,7 @@ export const whitepapers: Whitepaper[] = [
     title: "SvasthaX — Reimagining India's Digital Health Ecosystem",
     description: "A strategic and technical whitepaper by Bharat Kumar Dixit exploring a next-generation digital health platform built for India's scale. Covers interoperable health records, AI-powered diagnostics, multi-lingual patient engagement, and a national-scale ABDM-native architecture.",
     meta: '2025 · AUTHORED BY BHARAT DIXIT',
-    pdfUrl: '#',
+    pdfUrl: '/whitepapers/SvasthaXWhitepaper.pdf',
     pdfPublicId: null, // → set to 'bharatdixit/whitepapers/svasthax' after uploading
     route: '/whitepapers/svasthax',
     iconName: 'Activity',
@@ -210,7 +210,7 @@ export const whitepapers: Whitepaper[] = [
     title: 'UK Banking System Architecture — A Technical Analysis',
     description: "A detailed architectural whitepaper by Bharat Kumar Dixit examining the UK's modern banking infrastructure — Open Banking APIs, PSD2 compliance, real-time payment rails (Faster Payments, CHAPS), cloud-native core banking migration, and the technical blueprint for resilient financial systems.",
     meta: '2025 · AUTHORED BY BHARAT DIXIT',
-    pdfUrl: '#',
+    pdfUrl: '/whitepapers/UK_Banking_Architecture_Whitepaper_Bharat_Dixit.pdf',
     pdfPublicId: null, // → set to 'bharatdixit/whitepapers/uk-banking' after uploading
     route: '/whitepapers/uk-banking',
     iconName: 'Landmark',

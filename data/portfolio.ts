@@ -29,7 +29,7 @@ export interface CoverCard {
 }
 
 export const coverCards: CoverCard[] = [
-  { id: 'judging',       tag: 'Judge & Mentor',      tagCls: 'text-cyan-400',   title: 'Judging & Mentorship',        desc: 'Technical jury member at HackIndia, NIT Kolkata, NIT Delhi, Chitkara University, Smart India Hackathon, and more.',       imagePath: null, placeholderBg: 'from-[#0a1828] to-[#1a3050]' },
+  { id: 'judging',       tag: 'Judge & Mentor',      tagCls: 'text-cyan-400',   title: 'Judging & Mentorship',        desc: 'Technical jury member at HackIndia, NIT Kolkata, NIT Delhi, Chitkara University, Smart India Hackathon, and more.',       imagePath: 'null', placeholderBg: 'from-[#0a1828] to-[#1a3050]' },
   { id: 'ibm-training',  tag: 'Certified Excellence',tagCls: 'metallic-text',   title: 'IBM Enterprise Training',     desc: 'Completed advanced certification in enterprise cloud mobility and architectural scalability frameworks.',                   imagePath: null, placeholderBg: 'from-[#101828] to-[#1a2038]' },
   { id: 'recognitions',  tag: 'Industry Honours',    tagCls: 'text-primary',    title: 'Appreciation & Recognitions', desc: 'Recognised by peers and leadership for exceptional contributions to enterprise mobile architecture.',                    imagePath: null, placeholderBg: 'from-[#0a1020] to-[#1a2030]' },
   { id: 'media',         tag: 'Press Coverage',      tagCls: 'text-cyan-400',   title: 'Media Recognitions',          desc: 'Featured in leading technology publications for insights on AI integration and digital transformation.',                 imagePath: null, placeholderBg: 'from-[#0c1020] to-[#182030]' },
@@ -64,7 +64,7 @@ export const judgingEvents: JudgingEvent[] = [
     shortDesc: "Appointed as International Tech Lead Judge for HackIndia's national andinternational hackathons, evaluating 50+ finalist teams on engineering excellence and scalability.",
     fullDesc: "Appointed as an International Tech Lead Judge for HackIndia's prestigious national and international hackathons. Evaluated over 500+ teams across multiple engineering disciplines, including mobile development, AI/ML, Web3, and FinTech. Provided in-depth feedback on code quality, architectural decisions, and scalability potential. Engaged with finalists in a post-judging mentorship session focused on career pathways in technology leadership and enterprise architecture.",
     tags: ['Mobile', 'AI/ML', 'Web3', 'FinTech'],
-    imagePath: null,
+    imagePath: 'hackindia-appointment_pkuxqp',
     placeholderGradient: '#0a1428,#1a2848',
   },
   {
@@ -76,7 +76,7 @@ export const judgingEvents: JudgingEvent[] = [
     shortDesc: "Jury member at NIT Delhi's annual innovation summit, assessing student-built mobile and enterprise solutions.",
     fullDesc: "Invited as a technical panel judge at NIT Delhi's Innovation Summit. Assessed student-built mobile applications and enterprise solutions, focusing on code quality, user experience design, and production readiness. Conducted a post-judging Q&A session on industry pathways in mobile architecture for final-year students.",
     tags: ['Mobile', 'Innovation', 'Enterprise'],
-    imagePath: null,
+    imagePath: 'nit-delhi_jyw7hn',
     placeholderGradient: '#101828,#1c2a40',
   },
   {
@@ -88,7 +88,7 @@ export const judgingEvents: JudgingEvent[] = [
     shortDesc: 'Industry expert judge at Chitkara University TechFest, mentoring student teams on real-world architectural challenges.',
     fullDesc: "Served as an industry expert judge at Chitkara University's annual TechFest. Evaluated 30+ student projects across mobile app development, IoT integration, and AI-powered solutions. Provided hands-on mentorship to winning teams, guiding them on transitioning academic projects into production-ready products. Delivered a keynote on clean architecture principles for modern mobile development.",
     tags: ['Flutter', 'IoT', 'Mentorship', 'Keynote'],
-    imagePath: null,
+    imagePath: 'chitkara-university_oaxnvo',
     placeholderGradient: '#0c1020,#1a1c30',
   },
   {
@@ -100,7 +100,7 @@ export const judgingEvents: JudgingEvent[] = [
     shortDesc: 'Invited as Judge for the Hackathon (Hack-o-NiT), evaluating 50+ mobile and AI projects.',
     fullDesc: "Invited as a Judge for the Hackathon (Hack-o-NiT) for NIT Kolkata's Annual Technology Symposium. Evaluated over 50+ innovative mobile applications and AI-driven prototypes across three engineering specialisations — Mobile Development, AI/ML, and Cloud Systems. Provided strategic feedback on clean architecture, scalability patterns, and entrepreneurial viability to final-year engineering students.",
     tags: ['Mobile', 'AI', 'Cloud', 'Architecture'],
-    imagePath: null,
+    imagePath: 'nit-kolkata_vnw5ed',
     placeholderGradient: '#0a1828,#1a3050',
   },
   {
@@ -112,7 +112,7 @@ export const judgingEvents: JudgingEvent[] = [
     shortDesc: "Invitation received to serve as an International Tech Lead Judge at the ABES Hackathon, part of the HackIndia Hackathon series. This prestigious event attracts top student talent from across the country, competing on solutions for national challenges in healthcare, agriculture, and urban development.",
     fullDesc: "Received an invitation to serve as an International Tech Lead Judge at the ABES Hackathon, a key event in the HackIndia Hackathon series. This prestigious competition draws top student talent from across India, challenging them to develop innovative solutions for national issues in healthcare, agriculture, and urban development. As a judge, I will evaluate projects based on technical innovation, scalability, and real-world impact, while also providing mentorship to finalists on enterprise architecture and product strategy.",
     tags: ['GovTech', 'Healthcare', 'AgriTech', 'Scale'],
-    imagePath: null,
+    imagePath: 'abes_hltb1n',
     placeholderGradient: '#0a1020,#162030',
   },
   // {

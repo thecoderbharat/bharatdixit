@@ -361,20 +361,83 @@ export function ModuleSections() {
         if (isCerts) return (
           <section key={mod.id} id={mod.id} className="py-32 bg-surface-container-low overflow-hidden scroll-mt-24">
             <div className="max-w-7xl mx-auto px-8 mb-16 text-center">
-              <h2 className="font-headline text-5xl font-bold tracking-tight">Certifications &amp; Professional Badges</h2>
+              <span className="text-gold font-headline font-bold tracking-[0.3em] text-[10px] uppercase mb-4 block">
+                Professional Credentials
+              </span>
+              <h2 className="font-headline text-5xl font-bold tracking-tight mb-3">
+                Certifications &amp;{' '}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-neon">
+                  Professional Badges
+                </span>
+              </h2>
+              <p className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
+                Verified credentials in Generative AI, Agentic AI, and cloud architecture —
+                issued by Google, IBM, and Amazon Web Services.
+              </p>
             </div>
             <div className="relative overflow-hidden">
-              <div className="flex animate-scroll whitespace-nowrap gap-12 w-max px-8">
-                {[...Array(2)].flatMap(() => [
-                  { icon: '🏆', title: 'IBM Certified\nMobile Architect',  cls: 'text-primary'   },
-                  { icon: '☁️', title: 'AWS Solutions\nAssociate',         cls: 'text-secondary' },
-                  { icon: '⌨️', title: 'Google Flutter\nSpecialist',       cls: 'text-cyan-400'  },
-                  { icon: '🛡️', title: 'Enterprise\nSecurity Certified',   cls: 'text-primary'   },
-                  { icon: '✨', title: 'AI Implementation\nSpecialist',     cls: 'text-secondary' },
-                ]).map((cert, i) => (
-                  <div key={i} className="w-48 h-56 bg-surface-container-high rounded-t-full rounded-b-xl border border-white/10 flex flex-col items-center justify-center p-6 shadow-xl flex-shrink-0">
-                    <span className={`text-5xl mb-4 ${cert.cls}`}>{cert.icon}</span>
-                    <span className="text-center font-bold text-[10px] uppercase tracking-widest text-on-surface leading-tight whitespace-pre-line">{cert.title}</span>
+              {/* Edge fades */}
+              <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none bg-gradient-to-r from-surface-container-low to-transparent" />
+              <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none bg-gradient-to-l from-surface-container-low to-transparent" />
+
+              <div className="flex animate-scroll whitespace-nowrap gap-8 w-max px-8">
+                {[...Array(2)].flatMap((_, dupIdx) => ([
+                  {
+                    issuer: 'Google',
+                    title: 'Generative AI Leader',
+                    badge: '🧠',
+                    verifier: 'Credly Verified',
+                    accent: 'text-neon',
+                    ring: 'border-neon/30',
+                    glow: 'shadow-[0_0_30px_rgba(0,210,255,0.12)]',
+                  },
+                  {
+                    issuer: 'IBM',
+                    title: 'Generative & Agentic AI for IBM Consulting',
+                    badge: '🤖',
+                    verifier: 'IBM Learning',
+                    accent: 'text-primary',
+                    ring: 'border-primary/30',
+                    glow: 'shadow-[0_0_30px_rgba(180,197,255,0.12)]',
+                  },
+                  {
+                    issuer: 'Amazon Web Services',
+                    title: 'AWS Certified Cloud Practitioner',
+                    badge: '☁️',
+                    verifier: 'IBM-sponsored · Credly Verified',
+                    accent: 'text-gold',
+                    ring: 'border-gold/30',
+                    glow: 'shadow-[0_0_30px_rgba(212,175,55,0.12)]',
+                  },
+                  {
+                    issuer: 'IBM',
+                    title: 'Introduction to Artificial Intelligence',
+                    badge: '✨',
+                    verifier: 'Credly Verified',
+                    accent: 'text-primary',
+                    ring: 'border-primary/30',
+                    glow: 'shadow-[0_0_30px_rgba(180,197,255,0.12)]',
+                  },
+                ].map((c, i) => ({ ...c, _k: `${dupIdx}-${i}` })))).map((cert) => (
+                  <div
+                    key={cert._k}
+                    className={`w-72 bg-surface-container-high rounded-2xl border ${cert.ring}
+                                ${cert.glow} flex flex-col p-6 flex-shrink-0`}
+                  >
+                    <div className="flex items-start justify-between mb-6">
+                      <span className={`text-4xl ${cert.accent}`}>{cert.badge}</span>
+                      <span className="text-[9px] font-headline font-bold text-on-surface-variant
+                                       bg-surface-container border border-white/5 rounded px-2 py-1
+                                       uppercase tracking-widest">
+                        {cert.verifier}
+                      </span>
+                    </div>
+                    <div className={`text-[10px] font-headline font-bold uppercase tracking-[0.25em] ${cert.accent} mb-2`}>
+                      {cert.issuer}
+                    </div>
+                    <div className="font-headline font-bold text-base text-on-surface leading-snug whitespace-normal">
+                      {cert.title}
+                    </div>
                   </div>
                 ))}
               </div>

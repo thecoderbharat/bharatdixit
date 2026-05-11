@@ -26,9 +26,6 @@ export function Header() {
           <Link href="/whitepapers" className={`transition-colors duration-300 ${pathname === '/whitepapers' ? 'text-primary' : 'text-white/60 hover:text-primary'}`}>
             Whitepapers
           </Link>
-          <Link href="/gallery" className={`transition-colors duration-300 ${pathname === '/gallery' ? 'text-primary' : 'text-white/60 hover:text-primary'}`}>
-            Gallery
-          </Link>
         </div>
 
         <div className="flex items-center gap-4">
@@ -52,7 +49,7 @@ export function Header() {
       {/* Mobile menu */}
       {open && (
         <div className="md:hidden border-t border-white/10 px-8 py-5 flex flex-col gap-5">
-          {[['/', 'Home'], ['/whitepapers', 'Whitepapers'], ['/gallery', 'Gallery']].map(([href, label]) => (
+          {[['/', 'Home'], ['/whitepapers', 'Whitepapers']].map(([href, label]) => (
             <Link key={href} href={href} onClick={() => setOpen(false)}
               className="font-headline font-bold uppercase text-sm text-white/60 hover:text-primary transition-colors">
               {label}

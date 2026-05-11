@@ -3,7 +3,6 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
 import { cld } from '@/lib/cloudinary'
 import { judgingEvents } from '@/data/portfolio'
 
@@ -22,8 +21,6 @@ function Reveal({ children, className = '' }: { children: React.ReactNode; class
 }
 
 export function JudgingSection() {
-  const router = useRouter()
-
   return (
     <section id="judging" className="py-32 bg-surface border-y border-white/5 scroll-mt-24">
       <div className="max-w-7xl mx-auto px-8">
@@ -68,17 +65,13 @@ export function JudgingSection() {
           </div>
         </Reveal>
 
-        {/* Event Cards Grid — click → navigate to detail page */}
+        {/* Event Cards Grid — display only (detail pages temporarily disabled) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {judgingEvents.map((event) => (
             <Reveal key={event.id}>
-              <motion.article
-                whileHover={{ y: -4 }}
-                transition={{ duration: 0.2 }}
-                onClick={() => router.push(`/judging/${event.id}`)}
-                className="group cursor-pointer bg-surface-container rounded-2xl border border-white/5
-                           hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5
-                           transition-colors duration-300 overflow-hidden"
+              <article
+                className="bg-surface-container rounded-2xl border border-white/5
+                           overflow-hidden"
               >
                 {/* Image */}
                 <div className="relative h-48 overflow-hidden">
@@ -87,12 +80,12 @@ export function JudgingSection() {
                       src={cld(event.imagePath!, 'w_800,h_480,c_fill,g_face')}
                       alt={`Bharat Kumar Dixit judging at ${event.institution}`}
                       fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500 grayscale group-hover:grayscale-0"
+                      className="object-cover grayscale"
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
                   ) : (
                     <div
-                      className="w-full h-full flex items-end p-4 group-hover:opacity-80 transition-opacity"
+                      className="w-full h-full flex items-end p-4 transition-opacity"
                       style={{ background: `linear-gradient(135deg, ${event.placeholderGradient})` }}
                     >
                       <div className="absolute top-3 left-3 w-5 h-5 border-l border-t border-primary/20" />
@@ -128,34 +121,24 @@ export function JudgingSection() {
                   <div className="metallic-text font-bold text-[10px] uppercase tracking-widest mb-2">
                     {event.role}
                   </div>
-                  <h3 className="font-headline font-bold text-lg text-white leading-tight mb-2 group-hover:text-primary transition-colors">
+                  <h3 className="font-headline font-bold text-lg text-white leading-tight mb-2">
                     {event.institution}
                   </h3>
                   <p className="text-on-surface-variant text-sm leading-relaxed line-clamp-2 mb-4">
                     {event.shortDesc}
                   </p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex flex-wrap gap-2">
-                      {event.tags.slice(0, 2).map(tag => (
-                        <span key={tag}
-                          className="text-[9px] font-headline font-bold uppercase tracking-wider
-                                     text-on-surface-variant border border-outline-variant/40
-                                     px-2 py-0.5 rounded-full">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    <div className="flex items-center gap-1 text-[10px] uppercase tracking-widest font-bold
-                                    text-on-surface-variant group-hover:text-primary transition-colors">
-                      View Event
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        strokeWidth="2" className="group-hover:translate-x-1 transition-transform">
-                        <path d="m9 18 6-6-6-6"/>
-                      </svg>
-                    </div>
+                  <div className="flex flex-wrap gap-2">
+                    {event.tags.slice(0, 2).map(tag => (
+                      <span key={tag}
+                        className="text-[9px] font-headline font-bold uppercase tracking-wider
+                                   text-on-surface-variant border border-outline-variant/40
+                                   px-2 py-0.5 rounded-full">
+                        {tag}
+                      </span>
+                    ))}
                   </div>
                 </div>
-              </motion.article>
+              </article>
             </Reveal>
           ))}
         </div>

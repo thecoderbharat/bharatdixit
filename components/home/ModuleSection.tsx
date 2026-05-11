@@ -3,7 +3,6 @@
 import { useRef, useState, useEffect, useCallback } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
 import { moduleSections, recognitionSlides, mediaCards } from '@/data/portfolio'
 import { cld } from '@/lib/cloudinary'
 
@@ -227,7 +226,6 @@ function RecognitionsSlider() {
 
 // ── MEDIA RECOGNITIONS GRID + SEE MORE ───────────────────────────
 function MediaRecognitionsGrid() {
-  const router = useRouter()
   const TYPE_ICON: Record<string, string> = {
     article: '📰', interview: '🎙️', feature: '⭐', video: '🎬', podcast: '🎧',
   }
@@ -253,20 +251,16 @@ function MediaRecognitionsGrid() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {mediaCards.map((card, i) => (
             <Reveal key={card.id}>
-              <motion.article
-                whileHover={{ y: -4 }}
-                transition={{ duration: 0.2 }}
-                onClick={() => router.push(`/media#${card.id}`)}
-                className="group cursor-pointer bg-surface-container rounded-2xl border border-white/5
-                           hover:border-white/15 hover:shadow-xl hover:shadow-black/30
-                           transition-all duration-300 overflow-hidden flex flex-col"
+              <article
+                className="bg-surface-container rounded-2xl border border-white/5
+                           overflow-hidden flex flex-col"
               >
                 {/* Thumbnail */}
                 <div className="relative h-44 overflow-hidden flex-shrink-0"
                   style={{ background: `linear-gradient(135deg, ${card.placeholderGradient})` }}>
                   {card.imagePath ? (
                     <Image src={cld(card.imagePath!, 'w_600,h_352,c_fill')} alt={card.title} fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="object-cover"
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
                   ) : (
                     <div className="absolute inset-0 flex items-center justify-center">
@@ -297,46 +291,19 @@ function MediaRecognitionsGrid() {
                     style={{ color: card.accentColor }}>
                     {card.outlet} · {card.category}
                   </div>
-                  <h3 className="font-headline font-bold text-base text-white leading-snug mb-3
-                                 group-hover:text-primary transition-colors line-clamp-2">
+                  <h3 className="font-headline font-bold text-base text-white leading-snug mb-3 line-clamp-2">
                     {card.title}
                   </h3>
                   <p className="text-on-surface-variant text-sm leading-relaxed line-clamp-3 flex-1">
                     {card.description}
                   </p>
-                  <div className="flex items-center gap-2 mt-4 pt-4 border-t border-white/5">
-                    <span className="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant
-                                     group-hover:text-primary transition-colors">
-                      View Coverage
-                    </span>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                      strokeWidth="2" className="text-on-surface-variant group-hover:text-primary
-                      group-hover:translate-x-1 transition-all">
-                      <path d="m9 18 6-6-6-6"/>
-                    </svg>
-                  </div>
                 </div>
-              </motion.article>
+              </article>
             </Reveal>
           ))}
         </div>
 
-        {/* See More button */}
-        <Reveal className="text-center">
-          <button
-            onClick={() => router.push('/media')}
-            className="inline-flex items-center gap-3 px-10 py-4 bg-surface-container border border-white/10
-                       font-headline font-bold uppercase tracking-widest text-sm text-white
-                       hover:border-primary/50 hover:text-primary hover:shadow-lg hover:shadow-primary/10
-                       transition-all duration-300 rounded-xl group"
-          >
-            See All Media Coverage
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-              className="group-hover:translate-x-1 transition-transform">
-              <path d="m9 18 6-6-6-6"/>
-            </svg>
-          </button>
-        </Reveal>
+        {/* See More button — temporarily removed; restore when /media listing page is ready */}
       </div>
     </section>
   )

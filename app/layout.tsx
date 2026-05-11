@@ -78,7 +78,7 @@ const personSchema = {
   description: 'Bharat Kumar Dixit is an International Tech Leader, Senior Mobile Application Architect at IBM, and CTO at Vigorus.ai. Expert in AI-native healthcare, Flutter architecture, enterprise mobile systems, ABDM integration, and digital health innovation. Judge at HackIndia, NIT Kolkata, NIT Delhi, Chitkara University, and ABES Hackathon.',
   url: SITE_URL,
   image: { '@type': 'ImageObject', url: OG_IMAGE, width: 1200, height: 630 },
-  email: 'hello@bharatdixit.com',
+  email: 'bharat.dixit8@gmail.com',
   telephone: '+919354795744',
   worksFor: { '@type': 'Organization', name: 'Vigorus.ai', url: 'https://vigorus.ai' },
   alumniOf: [{ '@type': 'Organization', name: 'IBM' }],

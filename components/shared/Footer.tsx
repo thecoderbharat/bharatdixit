@@ -35,7 +35,7 @@ export function Footer() {
               Available for strategic advisory, technical leadership roles, and large-scale architectural consulting.
             </p>
             <div className="space-y-6">
-              <a href="mailto:hello@bharatdixit.com" className="flex items-center gap-6 group cursor-pointer">
+              <a href="mailto:bharat.dixit8@gmail.com" className="flex items-center gap-6 group cursor-pointer">
                 <div className="w-14 h-14 rounded-full bg-surface-container flex items-center justify-center border border-outline-variant/30 group-hover:bg-primary transition-all flex-shrink-0">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover:stroke-on-primary">
                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
@@ -43,7 +43,7 @@ export function Footer() {
                 </div>
                 <div>
                   <p className="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Direct Channel</p>
-                  <p className="font-headline font-bold text-xl">hello@bharatdixit.com</p>
+                  <p className="font-headline font-bold text-xl">bharat.dixit8@gmail.com</p>
                 </div>
               </a>
               <a href="https://wa.me/919354795744" target="_blank" rel="noopener noreferrer" className="flex items-center gap-6 group cursor-pointer">

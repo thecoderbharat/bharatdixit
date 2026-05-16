@@ -29,11 +29,6 @@ export function Header() {
         </div>
 
         <div className="flex items-center gap-4">
-          <button className="px-5 py-2.5 bg-primary text-on-primary font-headline font-bold
-                             uppercase tracking-widest text-[10px] rounded-lg transition-all
-                             hover:brightness-110 active:scale-95 shadow-lg shadow-primary/20">
-            Download Resume
-          </button>
           <button
             className="md:hidden text-white p-1"
             onClick={() => setOpen(!open)}
